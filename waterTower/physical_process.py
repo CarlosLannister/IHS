@@ -46,8 +46,7 @@ class RawWaterTank(Tank):
     def main_loop(self):
 
         count = 0
-        while(count <= PP_SAMPLES):
-            print("DEBUG " + str(PP_SAMPLES))
+        while True: # Do not stop the flow of water 
             print("DEBUG COUNT" + str(count))
 
             new_level = self.level
