@@ -1,0 +1,14 @@
+11-28 15:42:16.076   enip_srv enip.dev WARNING  route      Logix Failed attempting to resolve path {'size': 5, 'segment': [{'symbolic': 'FIT201:1'}]}: class,inst,addr: None, target: None
+11-28 15:42:17.471   enip_srv enip.dev WARNING  route      Logix Failed attempting to resolve path {'size': 5, 'segment': [{'symbolic': 'FIT201:1'}]}: class,inst,addr: None, target: None
+11-28 15:42:18.882   enip_srv enip.dev WARNING  route      Logix Failed attempting to resolve path {'size': 5, 'segment': [{'symbolic': 'FIT201:1'}]}: class,inst,addr: None, target: None
+11-28 15:42:20.286   enip_srv enip.dev WARNING  route      Logix Failed attempting to resolve path {'size': 5, 'segment': [{'symbolic': 'FIT201:1'}]}: class,inst,addr: None, target: None
+11-28 15:42:22.595   enip_srv enip.dev WARNING  route      Logix Failed attempting to resolve path {'size': 5, 'segment': [{'symbolic': 'FIT201:1'}]}: class,inst,addr: None, target: None
+11-28 15:42:24.076   enip_srv enip.dev WARNING  route      Logix Failed attempting to resolve path {'size': 5, 'segment': [{'symbolic': 'FIT201:1'}]}: class,inst,addr: None, target: None
+11-28 15:44:16.462   enip_srv enip.dev WARNING  route      Logix Failed attempting to resolve path {'size': 5, 'segment': [{'symbolic': 'FIT201:1'}]}: class,inst,addr: None, target: None
+11-28 15:44:17.879   enip_srv enip.dev WARNING  route      Logix Failed attempting to resolve path {'size': 5, 'segment': [{'symbolic': 'FIT201:1'}]}: class,inst,addr: None, target: None
+11-28 15:44:19.350   enip_srv enip.dev WARNING  route      Logix Failed attempting to resolve path {'size': 5, 'segment': [{'symbolic': 'FIT201:1'}]}: class,inst,addr: None, target: None
+11-28 15:44:20.771   enip_srv enip.dev WARNING  route      Logix Failed attempting to resolve path {'size': 5, 'segment': [{'symbolic': 'FIT201:1'}]}: class,inst,addr: None, target: None
+11-28 15:44:22.361   enip_srv enip.dev WARNING  route      Logix Failed attempting to resolve path {'size': 5, 'segment': [{'symbolic': 'FIT201:1'}]}: class,inst,addr: None, target: None
+11-28 15:44:23.788   enip_srv enip.dev WARNING  route      Logix Failed attempting to resolve path {'size': 5, 'segment': [{'symbolic': 'FIT201:1'}]}: class,inst,addr: None, target: None
+11-28 15:45:24.915   enip_srv enip.dev WARNING  route      Logix Failed attempting to resolve path {'size': 5, 'segment': [{'symbolic': 'FIT201:1'}]}: class,inst,addr: None, target: None
+11-28 15:45:31.147   enip_srv enip.dev WARNING  route      Logix Failed attempting to resolve path {'size': 5, 'segment': [{'symbolic': 'FIT201:1'}]}: class,inst,addr: None, target: None

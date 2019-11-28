@@ -33,7 +33,7 @@ class SwatS1CPS(MiniCPS):
         # SPHINX_SWAT_TUTORIAL RUN(
         pidplc2 = plc2.cmd(sys.executable + ' plc2.py &')
         print("PLC2 Running with PID " + pidplc2)
-        time.sleep(0.8)
+        time.sleep(2)
         pidplc1= plc1.cmd(sys.executable + ' plc1.py &')
         print("PLC3 Running with PID " + pidplc1)
         time.sleep(2)
