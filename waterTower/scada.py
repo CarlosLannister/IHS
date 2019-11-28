@@ -36,7 +36,7 @@ def waterLevels():
         socketio.emit('newnumber', {'number': level[0][1]}, namespace='/test')
         socketio.sleep(5)
         cursorObj.close()
-        time.sleep(5)
+        time.sleep(2)
 
 
 @app.route('/')
