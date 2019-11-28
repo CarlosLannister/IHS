@@ -20,10 +20,10 @@ import time
 
 # SPHINX_SWAT_TUTORIAL TAGS(
 MV101 = ('MV101', 1)
-P101 = ('P101', 2)
+P201 = ('P201', 2)
 LIT101 = ('LIT101', 1)
 FIT101 = ('FIT101', 1)
-FIT201 = ('FIT201', 2)
+#FIT201 = ('FIT201', 2)
 # SPHINX_SWAT_TUTORIAL TAGS)
 
 
@@ -34,7 +34,7 @@ class RawWaterTank(Tank):
 
         # SPHINX_SWAT_TUTORIAL STATE INIT(
         self.set(MV101, 1)
-        self.set(P101, 0)
+        self.set(P201, 0)
         self.level = self.set(LIT101, 0.500)
         # SPHINX_SWAT_TUTORIAL STATE INIT)
 
@@ -66,15 +66,15 @@ class RawWaterTank(Tank):
                 self.set(FIT101, 0.00)
 
             # outflows volumes
-            p101 = self.get(P101)
-            if int(p101) == 1:
-                self.set(FIT201, PUMP_FLOWRATE_OUT)
+            p201 = self.get(P201)
+            if int(p201) == 1:
+                #self.set(FIT201, PUMP_FLOWRATE_OUT)
                 outflow = PUMP_FLOWRATE_OUT * PP_PERIOD_HOURS
                 print("DEBUG RawWaterTank outflow: ", outflow)
                 water_volume -= outflow
             else:
-                self.set(FIT201, 0.00)
-
+                #self.set(FIT201, 0.00)
+                pass
             # compute new water_level
             new_level = water_volume / self.section
 
@@ -83,8 +83,7 @@ class RawWaterTank(Tank):
                 new_level = 0.0
 
             # update internal and state water level
-            print("DEBUG new_level: %.5f \t delta: %.5f" % (
-                new_level, new_level - self.level))
+            print("DEBUG new_level: %.5f \t delta: %.5f" % (new_level, new_level - self.level))
             self.level = self.set(LIT101, new_level)
 
             # 988 sec starting from 0.500 m

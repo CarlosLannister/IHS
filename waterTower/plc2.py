@@ -13,8 +13,8 @@ import time
 PLC1_ADDR = IP['plc1']
 PLC2_ADDR = IP['plc2']
 
-FIT201_2 = ('FIT201', 2)
-P101_2 = ('P101', 2)
+#FIT201_2 = ('FIT201', 2)
+P201 = ('P201', 2)
 
 
 class SwatPLC2(PLC):
@@ -38,20 +38,23 @@ class SwatPLC2(PLC):
         count = 0
         while(count <= PLC_SAMPLES):
 
-            fit201 = float(self.get(FIT201_2))
-            print("DEBUG PLC2 - get fit201: %f" % fit201)
+            #fit201 = float(self.get(FIT201_2))
+            #print("DEBUG PLC2 - get fit201: %f" % fit201)
 
-            self.send(FIT201_2, fit201, PLC2_ADDR)
+            #self.send(FIT201_2, fit201, PLC2_ADDR)
             # fit201 = self.receive(FIT201_2, PLC2_ADDR)
             # print "DEBUG PLC2 - receive fit201: ", fit201
 
-            p101 = float(self.get(P101_2))
-            print("DEBUG PLC2 - get p101: %f" % p101)
+
+            p201 = int(self.receive(P201, PLC2_ADDR))
+            self.set(P201, p201)
+            print("DEBUG PLC2 - received p201: %f" % p201)
+
 
             time.sleep(PLC_PERIOD_SEC)
             count += 1
 
-        print('DEBUG swat plc2 shutdown')
+        #print('DEBUG swat plc2 shutdown')
 
 
 if __name__ == "__main__":

@@ -28,8 +28,8 @@ swat = build_debug_logger(
 GRAVITATION = 9.81             # m.s^-2
 TANK_DIAMETER = 1.38           # m
 TANK_SECTION = 1.5             # m^2
-PUMP_FLOWRATE_IN = 2.55        # m^3/h spec say btw 2.2 and 2.4
-PUMP_FLOWRATE_OUT = 2.45       # m^3/h spec say btw 2.2 and 2.4
+PUMP_FLOWRATE_IN = 1.55        # m^3/h spec say btw 2.2 and 2.4
+PUMP_FLOWRATE_OUT = 1.45       # m^3/h spec say btw 2.2 and 2.4
 
 # periods in msec
 # R/W = Read or Write
@@ -62,7 +62,7 @@ TANK_HEIGHT = 1.600  # m
 
 PLC_PERIOD_SEC = 0.40  # plc update rate in seconds
 PLC_PERIOD_HOURS = PLC_PERIOD_SEC / 3600.0
-PLC_SAMPLES = 1000
+PLC_SAMPLES = 100000000
 
 PP_RESCALING_HOURS = 100
 PP_PERIOD_SEC = 0.20  # physical process update rate in seconds
@@ -124,7 +124,7 @@ PLC1_PROTOCOL = {
 
 PLC2_ADDR = IP['plc2']
 PLC2_TAGS = (
-    ('P101', 2, 'INT'),
+    ('P201', 2, 'INT'),
     ('FIT201', 2, 'REAL')
     # no interlocks
 )
@@ -160,9 +160,9 @@ CREATE TABLE swat_s1 (
 
 SCHEMA_INIT = """
     INSERT INTO swat_s1 VALUES ('FIT101',   1, '2.55');
-    INSERT INTO swat_s1 VALUES ('MV101',    1, '0');
+    INSERT INTO swat_s1 VALUES ('MV101',    1, '1');
     INSERT INTO swat_s1 VALUES ('LIT101',   1, '0.500');
     
-    INSERT INTO swat_s1 VALUES ('P101',     2, '1');
+    INSERT INTO swat_s1 VALUES ('P201',     2, '0');
     INSERT INTO swat_s1 VALUES ('FIT201',   2, '2.45');
 """
