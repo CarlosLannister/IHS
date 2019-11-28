@@ -29,16 +29,12 @@ class SwatS1CPS(MiniCPS):
         plc1, plc2, s1 = self.net.get(
             'plc1', 'plc2', 's1')
 
-        #print("Devices started")
-        #pidplc2 = plc2.cmd(sys.executable + ' plc2.py &')
-        #print("PLC2 Running with PID " + pidplc2)
-        #time.sleep(1)
-        #pidplc1= plc1.cmd(sys.executable + ' plc1.py &')
-        #print("PLC1 Running with PID " + pidplc1)
-        #time.sleep(2)
-        # pidphysical=s1.cmd(sys.executable + ' physical_process.py &')
-        # print("physical_process running with PID " + pidphysical)
+        plc1.cmd(sys.executable + ' plc1.py &')
+        plc2.cmd(sys.executable + ' plc2.py &')
+        s1.cmd(sys.executable + ' physical_process.py &')
 
+        print("Devices started")
+        
         CLI(self.net)
 
         net.stop()
