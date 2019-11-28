@@ -30,16 +30,14 @@ class SwatS1CPS(MiniCPS):
             'plc1', 'plc2', 's1')
 
         print("Devices started")
-        # SPHINX_SWAT_TUTORIAL RUN(
-        pidplc2 = plc2.cmd(sys.executable + ' plc2.py &')
-        print("PLC2 Running with PID " + pidplc2)
-        time.sleep(2)
-        pidplc1= plc1.cmd(sys.executable + ' plc1.py &')
-        print("PLC3 Running with PID " + pidplc1)
-        time.sleep(2)
+        #pidplc2 = plc2.cmd(sys.executable + ' plc2.py &')
+        #print("PLC2 Running with PID " + pidplc2)
+        #time.sleep(2)
+        #pidplc1= plc1.cmd(sys.executable + ' plc1.py &')
+        #print("PLC1 Running with PID " + pidplc1)
+        #time.sleep(2)
         # pidphysical=s1.cmd(sys.executable + ' physical_process.py &')
         # print("physical_process running with PID " + pidphysical)
-        # SPHINX_SWAT_TUTORIAL RUN)
 
         CLI(self.net)
 

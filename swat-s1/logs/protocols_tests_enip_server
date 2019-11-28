@@ -1,0 +1,18 @@
+11-28 12:48:51.341 MainThread network  WARNING  server_mai enip_srv server termination: KeyboardInterrupt()
+11-28 12:48:51.541 MainThread network  WARNING  join       enip_srv server TID [ 4480/140432504887040] hanging on None
+11-28 12:48:52.973 MainThread network  WARNING  server_mai enip_srv server termination: KeyboardInterrupt()
+11-28 12:48:53.175 MainThread network  WARNING  join       enip_srv server TID [ 4239/140340337264384] hanging on None
+11-28 14:43:46.327 MainThread network  WARNING  server_mai enip_srv server termination: KeyboardInterrupt()
+11-28 14:43:46.532 MainThread network  WARNING  join       enip_srv server TID [16364/140350864373504] hanging on None
+11-28 14:55:12.552 MainThread network  WARNING  server_mai enip_srv server termination: KeyboardInterrupt()
+11-28 14:55:12.753 MainThread network  WARNING  join       enip_srv server TID [19343/140356589360896] hanging on None
+11-28 14:55:41.380 MainThread network  WARNING  server_mai enip_srv server termination: KeyboardInterrupt()
+11-28 14:55:41.581 MainThread network  WARNING  join       enip_srv server TID [22318/140503953356544] hanging on None
+11-28 15:07:51.588 MainThread network  WARNING  server_mai enip_srv server termination: KeyboardInterrupt()
+11-28 15:07:51.789 MainThread network  WARNING  join       enip_srv server TID [24452/140124251367168] hanging on None
+11-28 15:09:46.208 MainThread network  WARNING  server_mai enip_srv server termination: KeyboardInterrupt()
+11-28 15:09:46.409 MainThread network  WARNING  join       enip_srv server TID [25585/140130548741888] hanging on None
+11-28 15:13:52.066 MainThread network  WARNING  server_mai enip_srv server termination: KeyboardInterrupt()
+11-28 15:13:52.273 MainThread network  WARNING  join       enip_srv server TID [27042/140436540319488] hanging on None
+11-28 15:24:47.072 MainThread network  WARNING  server_mai enip_srv server termination: KeyboardInterrupt()
+11-28 15:24:47.275 MainThread network  WARNING  join       enip_srv server TID [  417/140011249866496] hanging on None

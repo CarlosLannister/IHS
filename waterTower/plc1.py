@@ -60,7 +60,6 @@ class SwatPLC1(PLC):
                 print("INFO PLC1 - lit101 over H -> close mv101.")
                 self.set(MV101, 0)
                 self.send(MV101, 0, PLC1_ADDR)
-                print("INFo********************************************************")
                 self.set(P101, 1)
                 self.send(P101, 1, PLC2_ADDR)
 
