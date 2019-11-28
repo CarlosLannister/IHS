@@ -29,9 +29,9 @@ class SwatS1CPS(MiniCPS):
         plc1, plc2, s1 = self.net.get(
             'plc1', 'plc2', 's1')
 
-        plc1.cmd(sys.executable + ' plc1.py &')
-        plc2.cmd(sys.executable + ' plc2.py &')
-        s1.cmd(sys.executable + ' physical_process.py &')
+        #plc1.cmd(sys.executable + ' plc1.py &')
+        #plc2.cmd(sys.executable + ' plc2.py &')
+        #s1.cmd(sys.executable + ' physical_process.py &')
 
         print("Devices started")
         
