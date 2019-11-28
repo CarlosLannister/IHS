@@ -211,3 +211,13 @@ SCHEMA_INIT = """
 
     INSERT INTO swat_s1 VALUES ('LIT301',   3, '0.500');
 """
+
+# Normal Test
+# MV101 1 
+# P101 0
+# LIT101 0.8
+
+# test underflow
+#self.set(MV101, 0)
+#self.set(P101, 1)
+#self.level = self.set(LIT101, 0.500)
