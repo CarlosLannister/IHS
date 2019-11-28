@@ -9,6 +9,5 @@ Industrial Hacking Simulator
 - Minicps Python3 `pip3 install git+https://github.com/CarlosLannister/minicps`
 
 
-## Launch Secure Water Treatment (SWaT)
-1. python3 init.py
-2. python3 run.py
+## Launch Water Tower Scenario
+https://github.com/CarlosLannister/IHS/wiki/2.-WaterTower-Tutorial
