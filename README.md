@@ -1,4 +1,5 @@
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/CarlosLannister/IHS.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/CarlosLannister/IHS/alerts/)
+[![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/CarlosLannister/IHS.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/CarlosLannister/IHS/context:python)
 
 # IHS
 Industrial Hacking Simulator
