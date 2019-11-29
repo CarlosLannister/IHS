@@ -24,9 +24,11 @@ $(document).ready(function(){
             value = "70";
         }else if (number > 0.7 && number < 0.8){
             value = "80";
-        }else if (number > 0.9 && number < 1){
+        }else if (number > 0.9 && number <= 1){
             value = "90";
-        }else if (number > 1.1){ //Water Tank Limit
+        }else if (number > 1 && number <= 1.09){
+            value = "90";
+        }else if (number >= 1.1){ //Water Tank Limit
             value = "over";
             style = `style="background-image: url('/static/imgs/fondo2dead.png')"`;
         }else if (number < 0.1){
