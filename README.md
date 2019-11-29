@@ -5,7 +5,9 @@
 [![Python 3](https://pyup.io/repos/github/CarlosLannister/IHS/python-3-shield.svg)](https://pyup.io/repos/github/CarlosLannister/IHS/)
 
 # IHS
-Industrial Hacking Simulator it is a repository with ICS scenarios built with minicps. 
+Industrial Hacking Simulator (IHS) it is a repository with ICS scenarios built with minicps. IHS scenarios heavily relays in Minicps. Minicps is the work of Security of Cyber-Physical Systems group, [https://github.com/scy-phy](https://github.com/scy-phy). And one of his main maintainers was Daniele Antonioli [https://github.com/francozappa](https://github.com/francozappa).  
+
+Minicps original repo seems to be abandoned so we are using a fork maintaned repo that works with Python3. https://github.com/CarlosLannister/minicps . Check the wiki in you want to contribute  [ https://github.com/CarlosLannister/IHS/wiki/5.-Wanting-to-contribute-!!!]( https://github.com/CarlosLannister/IHS/wiki/5.-Wanting-to-contribute-!!!)   
 
 ## Requirements 
 https://github.com/CarlosLannister/IHS/wiki/1.-Installation-Tutorial
