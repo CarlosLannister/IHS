@@ -24,7 +24,7 @@ $(document).ready(function(){
             value = "80";
         }else if (number > 0.9 && number < 1){
             value = "90";
-        }else if (number > 1){
+        }else if (number > 1.1){ //Water Tank Limit
             value = "over";
         }else if (number < 0.1){
             value = "0";
