@@ -1,0 +1,49 @@
+  #fondo{
+    position: relative;
+	height: 600px;
+	width: 800px;
+	background-image: url("/static/imgs/fondo2.png");
+	background-color: rgb(240, 240, 255);
+	background-size: 100% 100%;
+  }
+
+
+  #torre{
+	position: absolute;
+	top: 30px;
+	left: 100px;
+	height: 200px;
+	width: 200px;
+  }
+  
+  #bomba1{
+	height: 200px;
+	width: 200px;
+	top: 400px;
+	left: 20px;
+	position: absolute;
+  }
+  
+  #bomba2{
+    height: 200px;
+	width: 200px;
+	top: 400px;
+	left: 200px;
+	position: absolute;
+  }
+  
+  #huerto{
+	height: 200px;
+	width: 200px;
+	top: 450px;
+	left: 400px;
+	position: absolute;
+  }
+  
+  #value1{
+	height: 200px;
+	width: 400px;
+	top: 200px;
+	left: 300px;
+	position: absolute;
+  }
