@@ -8,6 +8,7 @@ $(document).ready(function(){
         numbers_string = '<h4>' + msg.number.toString() + '</h4>';
         crop = "crop";
         style = "";
+        value = "80";
 
         if (number > 0.1 && number < 0.2){
             value = "20";

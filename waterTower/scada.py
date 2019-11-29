@@ -27,9 +27,10 @@ def waterLevels():
     """
     #infinite loop of magical random numbers
     print("Getting waterLevels")
+    db = sqlite3.connect('file:swat_s1_db.sqlite?mode=ro', uri=True, timeout=3)
+    cursorObj = db.cursor()
     while not thread_stop_event.isSet():
-        db = sqlite3.connect('file:swat_s1_db.sqlite?mode=ro', uri=True)
-        cursorObj = db.cursor()
+        
         cursorObj.execute('SELECT name, value FROM swat_s1 WHERE name="LIT101"')
         level = cursorObj.fetchall()
         waterLevel = level[0][1]
@@ -40,9 +41,14 @@ def waterLevels():
         cursorObj.execute('SELECT name, value FROM swat_s1 WHERE name="P201"')
         P201 = cursorObj.fetchall()[0][1]
 
+        db.commit()
+        
         socketio.emit('newnumber', {'number': waterLevel, 'MV001' : MV001, 'P201': P201}, namespace='/test')
-        socketio.sleep(0.5)
-        cursorObj.close()
+        socketio.sleep(0.3)
+
+    cursorObj.close()
+    db.close()
+        
 
 
 @app.route('/')
