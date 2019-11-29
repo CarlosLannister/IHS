@@ -38,11 +38,6 @@ class RawWaterTank(Tank):
         self.level = self.set(LIT101, 0.500)
         # SPHINX_SWAT_TUTORIAL STATE INIT)
 
-        # test underflow
-        # self.set(MV101, 0)
-        # self.set(P101, 1)
-        # self.level = self.set(LIT101, 0.500)
-
     def main_loop(self):
 
         count = 0
@@ -67,12 +62,10 @@ class RawWaterTank(Tank):
             # outflows volumes
             p201 = self.get(P201)
             if int(p201) == 1:
-                #self.set(FIT201, PUMP_FLOWRATE_OUT)
                 outflow = PUMP_FLOWRATE_OUT * PP_PERIOD_HOURS
                 print("DEBUG RawWaterTank outflow: ", outflow)
                 water_volume -= outflow
             else:
-                #self.set(FIT201, 0.00)
                 pass
             # compute new water_level
             new_level = water_volume / self.section
@@ -85,12 +78,12 @@ class RawWaterTank(Tank):
             print("DEBUG new_level: %.5f \t delta: %.5f" % (new_level, new_level - self.level))
             self.level = self.set(LIT101, new_level)
 
-            # 988 sec starting from 0.500 m
+            # TODO overflow
             if new_level >= LIT_101_M['HH']:
                 print('DEBUG RawWaterTank above HH count: ', count)
                 break
 
-            # 367 sec starting from 0.500 m
+            # TODO underflow
             elif new_level <= LIT_101_M['LL']:
                 print('DEBUG RawWaterTank below LL count: ', count)
                 break

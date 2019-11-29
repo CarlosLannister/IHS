@@ -3,9 +3,10 @@
 # Use with ettercap -F mitm-INT-42.ef
 
 # some operation on the payload of the packet
-if (tcp.src == 44818) {
+if (tcp.dst == 44818) {
    log(DATA.data, "../temp/log.data");
    msg("test");
 } else {
+   log(DATA.data, "../temp/log.data2");
    msg("nope");
 }

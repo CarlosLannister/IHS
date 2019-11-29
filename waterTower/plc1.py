@@ -17,10 +17,10 @@ MV101 = ('MV101', 1)
 LIT101 = ('LIT101', 1)
 P201 = ('P201', 2)
 # interlocks to be received from plc2 and plc3
-FIT201_1 = ('FIT201', 1)
-FIT201_2 = ('FIT201', 2)
-MV201_1 = ('MV201', 1)
-MV201_2 = ('MV201', 2)
+#FIT201_1 = ('FIT201', 1)
+#FIT201_2 = ('FIT201', 2)
+#MV201_1 = ('MV201', 1)
+#MV201_2 = ('MV201', 2)
 # SPHINX_SWAT_TUTORIAL PLC1 LOGIC)
 
 # TODO: real value tag where to read/write flow sensor
@@ -28,7 +28,6 @@ class SwatPLC1(PLC):
 
     def pre_loop(self, sleep=0.1):
         print('DEBUG: swat-s1 plc1 enters pre_loop')
-        print()
 
         time.sleep(sleep)
 
@@ -71,9 +70,7 @@ class SwatPLC1(PLC):
             
             # Underflow
             elif lit101 <= LIT_101_M['LL']:
-                print("WARNING PLC1 - lit101 under LL: %.2f <= %.2f." % (
-                    lit101, LIT_101_M['LL']))
-
+                print("WARNING PLC1 - lit101 under LL: %.2f <= %.2f." % (lit101, LIT_101_M['LL']))
                 #TODO underflow flag here
 
             # Hit the low threshold
@@ -88,23 +85,6 @@ class SwatPLC1(PLC):
                 self.set(MV101, 1)
                 self.send(MV101, 1, PLC1_ADDR)
 
-            # TODO: use it when implement raw water tank
-            # read from PLC2 (constant value)
-            #print("DEBUG " + str(FIT201_2))
-            
-            # To keep the PLC alive when the connection is broken for a while
-            # the previous value is stored
-            #TODO Here maybe some fix
-            #try:
-            #    fit201 = float(self.receive(FIT201_2, PLC2_ADDR))
-            #    old_fit201 = fit201
-            #except:
-            #    fit201 = old_fit201
-
-            #print("DEBUG PLC1 - receive fit201: %f" % fit201)
-            #self.send(FIT201_1, fit201, PLC1_ADDR)
-            
-            #self.send(LIT101, lit101, PLC1_ADDR)
             print("************************************")
             time.sleep(PLC_PERIOD_SEC)
             count += 1

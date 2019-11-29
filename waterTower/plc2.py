@@ -13,7 +13,6 @@ import time
 PLC1_ADDR = IP['plc1']
 PLC2_ADDR = IP['plc2']
 
-#FIT201_2 = ('FIT201', 2)
 P201 = ('P201', 2)
 
 
@@ -28,8 +27,8 @@ class SwatPLC2(PLC):
     def main_loop(self):
         """plc2 main loop.
 
-            - read flow level sensors #2
-            - update interal enip server
+            - read engine value from the network 
+            - opens or closes the engine
         """
 
         print('DEBUG: swat-s1 plc2 enters main_loop.')
@@ -38,24 +37,12 @@ class SwatPLC2(PLC):
         count = 0
         while(count <= PLC_SAMPLES):
 
-            #fit201 = float(self.get(FIT201_2))
-            #print("DEBUG PLC2 - get fit201: %f" % fit201)
-
-            #self.send(FIT201_2, fit201, PLC2_ADDR)
-            # fit201 = self.receive(FIT201_2, PLC2_ADDR)
-            # print "DEBUG PLC2 - receive fit201: ", fit201
-
-
             p201 = int(self.receive(P201, PLC2_ADDR))
             self.set(P201, p201)
             print("DEBUG PLC2 - received p201: %f" % p201)
 
-
             time.sleep(PLC_PERIOD_SEC)
             count += 1
-
-        #print('DEBUG swat plc2 shutdown')
-
 
 if __name__ == "__main__":
 
