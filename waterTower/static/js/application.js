@@ -4,9 +4,9 @@ $(document).ready(function(){
 
     //receive details from server
     socket.on('newnumber', function(msg) {
-        console.log("Received number" + msg.number);
         number = msg.number.toString();
         numbers_string = '<h4>' + msg.number.toString() + '</h4>';
+        crop = "crop";
 
         if (number > 0.1 && number < 0.2){
             value = "20";
@@ -26,6 +26,19 @@ $(document).ready(function(){
             value = "90";
         }else if (number < 0.1){
             value = "0";
+            crop = "cropdead";
+        }
+
+        if (msg.MV101 == 0){
+            MV101 = "off";
+        }else{
+            MV101 = "on";
+        }
+
+        if (msg.P201 == 0){
+            P201 = "off";
+        }else{
+            P201 = "on";
         }
 
         number = Math.trunc(msg.number * 1000); 
@@ -34,13 +47,13 @@ $(document).ready(function(){
                 <img src="static/imgs/water` + value.toString() + `.png" width="100%" >
             </div>
             <div id="bomba1" >
-                <img src="static/imgs/pump_off.png" width="100%" >
+                <img src="static/imgs/pump_` + MV101.toString() + `.png" width="100%" >
             </div>
             <div id="bomba2" >
-                <img src="static/imgs/pump_on.png" width="100%" >
+                <img src="static/imgs/pump_` + P201.toString() + `.png" width="100%" >
             </div>
             <div id="huerto" >
-                <img src="static/imgs/crop.png" width="100%" >
+                <img src="static/imgs/`+ crop.toString() + `.png" width="100%" >
             </div>
             <div id="value1" >   
                 <h3> Water level:

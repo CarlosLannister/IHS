@@ -33,8 +33,15 @@ def waterLevels():
         cursorObj = db.cursor()
         cursorObj.execute('SELECT name, value FROM swat_s1 WHERE name="LIT101"')
         level = cursorObj.fetchall()
-        print(level[0][0])
-        socketio.emit('newnumber', {'number': level[0][1]}, namespace='/test')
+        waterLevel = level[0][1]
+
+        cursorObj.execute('SELECT name, value FROM swat_s1 WHERE name="MV101"')
+        MV101 = cursorObj.fetchall()[0][1]
+
+        cursorObj.execute('SELECT name, value FROM swat_s1 WHERE name="P201"')
+        P201 = cursorObj.fetchall()[0][1]
+
+        socketio.emit('newnumber', {'number': waterLevel, 'MV101' : MV101, 'P201': P201}, namespace='/test')
         socketio.sleep(0.5)
         cursorObj.close()
 
