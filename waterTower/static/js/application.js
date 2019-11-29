@@ -7,6 +7,7 @@ $(document).ready(function(){
         number = msg.number.toString();
         numbers_string = '<h4>' + msg.number.toString() + '</h4>';
         crop = "crop";
+        style = "";
 
         if (number > 0.1 && number < 0.2){
             value = "20";
@@ -26,9 +27,11 @@ $(document).ready(function(){
             value = "90";
         }else if (number > 1.1){ //Water Tank Limit
             value = "over";
+            style = `style="background-image: url('/static/imgs/fondo2dead.png')"`;
         }else if (number < 0.1){
             value = "0";
             crop = "cropdead";
+            style = `style="background-image: url('/static/imgs/fondo2dead.png')"`;
         }
 
         if (msg.MV101 == 0){
@@ -45,6 +48,7 @@ $(document).ready(function(){
 
         number = Math.trunc(msg.number * 1000); 
         css = `
+            <div id="fondo" ` + style + ` class="col-md-2 col-md-offset-2">
             <div id="torre" >
                 <img src="static/imgs/water` + value.toString() + `.png" width="100%" >
             </div>
