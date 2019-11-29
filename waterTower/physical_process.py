@@ -19,11 +19,10 @@ import time
 
 
 # SPHINX_SWAT_TUTORIAL TAGS(
-MV101 = ('MV101', 1)
+MV001 = ('MV001', 0)
 P201 = ('P201', 2)
 LIT101 = ('LIT101', 1)
 FIT101 = ('FIT101', 1)
-#FIT201 = ('FIT201', 2)
 # SPHINX_SWAT_TUTORIAL TAGS)
 
 
@@ -33,8 +32,8 @@ class RawWaterTank(Tank):
     def pre_loop(self):
 
         # SPHINX_SWAT_TUTORIAL STATE INIT(
-        self.set(MV101, 1)
-        self.set(P201, 0)
+        self.set(MV001, 1)
+        self.set(P201, 2)
         self.level = self.set(LIT101, 0.500)
         # SPHINX_SWAT_TUTORIAL STATE INIT)
 
@@ -50,8 +49,8 @@ class RawWaterTank(Tank):
             water_volume = self.section * new_level
 
             # inflows volumes
-            mv101 = self.get(MV101)
-            if int(mv101) == 1:
+            mv001 = int(self.get(MV001))
+            if mv001 == 1:
                 self.set(FIT101, PUMP_FLOWRATE_IN)
                 inflow = PUMP_FLOWRATE_IN * PP_PERIOD_HOURS
                 print("DEBUG RawWaterTank inflow: ", inflow)
@@ -60,8 +59,8 @@ class RawWaterTank(Tank):
                 self.set(FIT101, 0.00)
 
             # outflows volumes
-            p201 = self.get(P201)
-            if int(p201) == 1:
+            p201 = int(self.get(P201))
+            if p201 == 1:
                 outflow = PUMP_FLOWRATE_OUT * PP_PERIOD_HOURS
                 print("DEBUG RawWaterTank outflow: ", outflow)
                 water_volume -= outflow

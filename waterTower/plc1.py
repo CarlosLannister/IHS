@@ -9,11 +9,12 @@ from utils import IP, LIT_101_M
 
 import time
 
+PLC0_ADDR = IP['plc0']
 PLC1_ADDR = IP['plc1']
 PLC2_ADDR = IP['plc2']
 
 FIT101 = ('FIT101', 1)
-MV101 = ('MV101', 1)
+MV001 = ('MV001', 0)
 LIT101 = ('LIT101', 1)
 P201 = ('P201', 2)
 # interlocks to be received from plc2 and plc3
@@ -49,41 +50,46 @@ class SwatPLC1(PLC):
             #self.send(LIT101, lit101, PLC1_ADDR)
         
             print('DEBUG plc1 lit101: %.5f' % lit101)
+            # TODO this would go to the SCADA
             self.send(LIT101, lit101, PLC1_ADDR)
 
-            # Overflow    
-            if lit101 >= LIT_101_M['HH']:
-                print("WARNING PLC1 - lit101 over HH: %.2f >= %.2f." % (lit101, LIT_101_M['HH']))
-                #TODO overflow flag here
+            # TODO If it does not work, problem here
+            # Remove if working
+            ###############################
 
-            # Hit the high threshold
+            # Hit the first overflow threshold
             if lit101 >= LIT_101_M['H']:
-                # CLOSE mv101
-                print("INFO PLC1 - lit101 over H -> close mv101 and open p201")
+                print("INFO PLC1 - lit101 over H -> close mv001 and open p201")
                 
-                self.set(MV101, 0)
-                self.send(MV101, 0, PLC1_ADDR)
-                #self.set(P201, 1)
+                # Overflow!!!    
+                if lit101 >= LIT_101_M['HH']:
+                    print("WARNING OVERFLOW!! Over HH: %.2f >= %.2f." % (lit101, LIT_101_M['HH']))
+                    #TODO overflow flag here?
+                
+                # PLC1 informs PLC0 to close the valve mv001
+                self.send(MV001, 2, PLC0_ADDR)
 
-                # PLC1 informs PLC2 to open the engine
+                # PLC1 informs PLC2 to open the pump p201
                 self.send(P201, 1, PLC2_ADDR)
             
-            # Underflow
-            elif lit101 <= LIT_101_M['LL']:
-                print("WARNING PLC1 - lit101 under LL: %.2f <= %.2f." % (lit101, LIT_101_M['LL']))
-                #TODO underflow flag here
-
-            # Hit the low threshold
+            # Hit the first underflow threshold
             elif lit101 <= LIT_101_M['L']:
+                print("INFO PLC1 - lit101 over H -> close mv101 and open p201")
                 
-                # PLC1 informs PLC2 to close p201
+                # Underflow!!!
+                if lit101 <= LIT_101_M['LL']:
+                    print("WARNING UNDERFLOW!! Under LL: %.2f <= %.2f." % (lit101, LIT_101_M['LL']))
+                    #TODO underflow flag here
+                
+                # PLC1 informs PLC0 to open the valve mv001
+                #self.set(MV101, 1)
+                self.send(MV001, 1, PLC0_ADDR)
+
+                # PLC1 informs PLC2 to close the pump p201
                 #print("INFO PLC1 - close p101.")
                 #self.set(P201, 0)
-                self.send(P201, 0, PLC2_ADDR)
+                self.send(P201, 2, PLC2_ADDR)
 
-                #Open MV101
-                self.set(MV101, 1)
-                self.send(MV101, 1, PLC1_ADDR)
 
             print("************************************")
             time.sleep(PLC_PERIOD_SEC)

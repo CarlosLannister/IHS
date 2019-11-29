@@ -26,8 +26,8 @@ class SwatS1CPS(MiniCPS):
         net.pingAll()
 
         # start devices
-        plc1, plc2, s1 = self.net.get(
-            'plc1', 'plc2', 's1')
+        plc0, plc1, plc2, s1 = self.net.get(
+            'plc0', 'plc1', 'plc2', 's1')
 
         #plc1.cmd(sys.executable + ' plc1.py &')
         #plc2.cmd(sys.executable + ' plc2.py &')

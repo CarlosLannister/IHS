@@ -7,8 +7,8 @@ values as strings.
 Actuator tags are redundant, we will use only the XXX_XXX_OPEN tag ignoring
 the XXX_XXX_CLOSE with the following convention:
     - 0 = error
-    - 1 = off
-    - 2 = on
+    - 1 = on
+    - 2 = off
 
 sqlite uses float keyword and cpppo use REAL keyword.
 """
@@ -77,14 +77,16 @@ FIT_201_THRESH = 1.00
 
 # topo {{{1
 IP = {
-    'plc1': '192.168.1.10',
-    'plc2': '192.168.1.20',
+    'plc0': '192.168.1.10',
+    'plc1': '192.168.1.20',
+    'plc2': '192.168.1.30',
     'attacker': '192.168.1.77',
 }
 
 NETMASK = '/24'
 
 MAC = {
+    'plc0': '00:1D:9C:C6:A0:60',
     'plc1': '00:1D:9C:C7:B0:70',
     'plc2': '00:1D:9C:C8:BC:46',
     'attacker': 'AA:AA:AA:AA:AA:AA',
@@ -92,6 +94,10 @@ MAC = {
 
 
 # others
+# TODO
+PLC0_DATA = {
+    'TODO': 'TODO',
+}
 # TODO
 PLC1_DATA = {
     'TODO': 'TODO',
@@ -102,14 +108,27 @@ PLC2_DATA = {
 }
 
 
+# SPHINX_SWAT_TUTORIAL PLC0 UTILS(
+PLC0_ADDR = IP['plc0']
+PLC0_TAGS = (
+    #TODO add flag here
+    ('MV001', 0, 'INT'),
+)
+PLC0_SERVER = {
+    'address': PLC0_ADDR,
+    'tags': PLC0_TAGS
+}
+PLC0_PROTOCOL = {
+    'name': 'enip',
+    'mode': 1,
+    'server': PLC0_SERVER
+}
 # SPHINX_SWAT_TUTORIAL PLC1 UTILS(
 PLC1_ADDR = IP['plc1']
 PLC1_TAGS = (
     ('FIT101', 1, 'REAL'),
-    ('MV101', 1, 'INT'),
     ('LIT101', 1, 'REAL'),
     # interlocks does NOT go to the statedb
-    ('MV201', 1, 'INT')
 )
 PLC1_SERVER = {
     'address': PLC1_ADDR,
@@ -160,9 +179,9 @@ CREATE TABLE swat_s1 (
 
 SCHEMA_INIT = """
     INSERT INTO swat_s1 VALUES ('FIT101',   1, '2.55');
-    INSERT INTO swat_s1 VALUES ('MV101',    1, '1');
+    INSERT INTO swat_s1 VALUES ('MV001',    0, '1');
     INSERT INTO swat_s1 VALUES ('LIT101',   1, '0.500');
     
-    INSERT INTO swat_s1 VALUES ('P201',     2, '0');
+    INSERT INTO swat_s1 VALUES ('P201',     2, '2');
     INSERT INTO swat_s1 VALUES ('FIT201',   2, '2.45');
 """

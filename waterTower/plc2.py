@@ -10,6 +10,7 @@ from utils import IP
 
 import time
 
+PLC0_ADDR = IP['plc0']
 PLC1_ADDR = IP['plc1']
 PLC2_ADDR = IP['plc2']
 
@@ -38,8 +39,9 @@ class SwatPLC2(PLC):
         while(count <= PLC_SAMPLES):
 
             p201 = int(self.receive(P201, PLC2_ADDR))
-            self.set(P201, p201)
-            print("DEBUG PLC2 - received p201: %f" % p201)
+            if p201 != 0:
+                self.set(P201, p201)
+                print("DEBUG PLC2 - received p201: %f" % p201)
 
             time.sleep(PLC_PERIOD_SEC)
             count += 1

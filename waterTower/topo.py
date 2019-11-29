@@ -15,6 +15,12 @@ class SwatTopo(Topo):
 
         switch = self.addSwitch('s1')
 
+        plc0 = self.addHost(
+            'plc0',
+            ip=IP['plc0'] + NETMASK,
+            mac=MAC['plc0'])
+        self.addLink(plc0, switch)
+
         plc1 = self.addHost(
             'plc1',
             ip=IP['plc1'] + NETMASK,
