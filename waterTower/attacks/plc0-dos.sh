@@ -20,7 +20,7 @@ PCAP_FILE="arp-mitm-active.pcap"
 ETTERFILTER_NAME="dos-plc0"
 
 # log everything in files
-exec >> ../../temp/arppoison-mitm.out 2>> ../../temp/arppoison-mitm.err
+#exec >> ../../temp/arppoison-mitm.out 2>> ../../temp/arppoison-mitm.err
 
 # Compile the ettercap filter
 if ! etterfilter "$ETTERFILTER_NAME.ecf" -o "$ETTERFILTER_NAME.ef"
