@@ -16,7 +16,7 @@ T2="$2"
 ATT_IFACE="$3"
 PCAP_FILE="arp-mitm-active.pcap"
 #ETTERFILTER_NAME="dos-test"
-ETTERFILTER_NAME="mitm-test"
+ETTERFILTER_NAME="dos-plc0"
 echo here
 # log everything in files
 exec >> ../../temp/arppoison-mitm.out 2>> ../../temp/arppoison-mitm.err

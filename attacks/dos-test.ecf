@@ -1,6 +1,0 @@
-if (ip.src == '192.168.1.20' || ip.dst == '192.168.1.20')
-{
-   drop();
-   kill();
-   msg("Packet Dropped\n");
-}
