@@ -17,6 +17,7 @@ FIT101 = ('FIT101', 1)
 MV001 = ('MV001', 0)
 LIT101 = ('LIT101', 1)
 P201 = ('P201', 2)
+FLAG = ('flag(estoesunaflag)', 2)
 # interlocks to be received from plc2 and plc3
 #FIT201_1 = ('FIT201', 1)
 #FIT201_2 = ('FIT201', 2)
@@ -92,6 +93,7 @@ class SwatPLC1(PLC):
 
 
             print("************************************")
+            self.send(FLAG, 2, PLC2_ADDR)
             time.sleep(PLC_PERIOD_SEC)
             count += 1
 
