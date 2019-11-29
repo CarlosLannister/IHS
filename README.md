@@ -12,4 +12,8 @@ https://github.com/CarlosLannister/IHS/wiki/1.-Installation-Tutorial
 
 
 ## Launch Water Tower Scenario
+
+![Water Tower](https://raw.githubusercontent.com/CarlosLannister/IHS/master/waterTower/waterTower.png)
+
+
 https://github.com/CarlosLannister/IHS/wiki/2.-WaterTower-Tutorial
