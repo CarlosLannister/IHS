@@ -21,11 +21,7 @@ thread = Thread()
 thread_stop_event = Event()
 
 def waterLevels():
-    """
-    Generate a random number every 1 second and emit to a socketio instance (broadcast)
-    Ideally to be run in a separate thread?
-    """
-    #infinite loop of magical random numbers
+
     print("Getting waterLevels")
     db = sqlite3.connect('file:swat_s1_db.sqlite?mode=ro', uri=True, timeout=3)
     cursorObj = db.cursor()
