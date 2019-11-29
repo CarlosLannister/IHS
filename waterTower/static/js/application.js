@@ -34,17 +34,19 @@ $(document).ready(function(){
             style = `style="background-image: url('/static/imgs/fondo2dead.png')"`;
         }
 
-        if (msg.MV101 == 0){
-            MV101 = "off";
-        }else{
-            MV101 = "on";
+        if (msg.MV001 == 2){
+            MV001 = "off";
+        }else if (msg.MV001 == 1){
+            MV001 = "on";
         }
+        console.log(MV001);
 
-        if (msg.P201 == 0){
+        if (msg.P201 == 2){
             P201 = "off";
-        }else{
+        }else if (msg.P201 == 1){
             P201 = "on";
         }
+        console.log(P201);
 
         number = Math.trunc(msg.number * 1000); 
         css = `
@@ -53,7 +55,7 @@ $(document).ready(function(){
                 <img src="static/imgs/water` + value.toString() + `.png" width="100%" >
             </div>
             <div id="bomba1" >
-                <img src="static/imgs/pump_` + MV101.toString() + `.png" width="100%" >
+                <img src="static/imgs/pump_` + MV001.toString() + `.png" width="100%" >
             </div>
             <div id="bomba2" >
                 <img src="static/imgs/pump_` + P201.toString() + `.png" width="100%" >
