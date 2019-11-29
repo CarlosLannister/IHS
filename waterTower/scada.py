@@ -12,6 +12,7 @@ __author__ = 'slynn'
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
 app.config['DEBUG'] = True
+app.config['HOST'] = '0.0.0.0'
 
 #turn the flask app into a socketio app
 socketio = SocketIO(app, async_mode=None, logger=True, engineio_logger=True)
@@ -36,7 +37,7 @@ def waterLevels():
         socketio.emit('newnumber', {'number': level[0][1]}, namespace='/test')
         socketio.sleep(5)
         cursorObj.close()
-        time.sleep(2)
+        time.sleep(0.5)
 
 
 @app.route('/')
