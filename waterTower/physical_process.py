@@ -86,7 +86,7 @@ class RawWaterTank(Tank):
             # TODO underflow
             elif new_level <= LIT_101_M['LL']:
                 print('DEBUG RawWaterTank below LL count: ', count)
-                break
+                #break
 
             count += 1
             time.sleep(PP_PERIOD_SEC)

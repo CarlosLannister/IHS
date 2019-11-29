@@ -29,7 +29,7 @@ GRAVITATION = 9.81             # m.s^-2
 TANK_DIAMETER = 1.38           # m
 TANK_SECTION = 1.5             # m^2
 PUMP_FLOWRATE_IN = 1.35        # m^3/h spec say btw 2.2 and 2.4
-PUMP_FLOWRATE_OUT = 1.55       # m^3/h spec say btw 2.2 and 2.4
+PUMP_FLOWRATE_OUT = 1.85       # m^3/h spec say btw 2.2 and 2.4
 
 # periods in msec
 # R/W = Read or Write
@@ -45,13 +45,13 @@ DISPLAYED_SAMPLES = 14
 
 # Control logic thresholds
 LIT_101_MM = {  # raw water tank mm
-    'LL': 250.0,
+    'LL': 0.0,
     'L': 500.0,
     'H': 800.0,
     'HH': 1200.0,
 }
 LIT_101_M = {  # raw water tank m
-    'LL': 0.250,
+    'LL': 0.00,
     'L': 0.500,
     'H': 0.800,
     'HH': 1.200,
