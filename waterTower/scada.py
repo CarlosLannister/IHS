@@ -10,9 +10,8 @@ import sqlite3
 __author__ = 'slynn'
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'secret!'
-app.config['DEBUG'] = True
-app.config['HOST'] = '0.0.0.0'
+app.config['SECRET_KEY'] = 'secret!' #Generate a personal secret key for production use !!!!!. It should be random and secret. 
+app.config['DEBUG'] = True #Do not forget to turnoff debug mode it is a production environment. 
 
 #turn the flask app into a socketio app
 socketio = SocketIO(app, async_mode=None, logger=True, engineio_logger=True)
