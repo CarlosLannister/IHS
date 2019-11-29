@@ -71,7 +71,7 @@ def dos():
         with open('/tmp/webapp-log', 'w') as f:
             new=''
 
-    return Response(status=400) 
+    return new[len(old):]
 
 
 
@@ -94,17 +94,22 @@ def start():
     plc0, plc1, plc2, s1 = net.get(
         'plc0', 'plc1', 'plc2', 's1')
 
-    plc0.cmd('while true; do `' + sys.executable + ' plc0.py` && break; done &')
+    plc0Pid = plc0.cmd(sys.executable + ' plc0.py &')
+    print(plc0Pid)
+    time.sleep(0.5) 
+    plc1Pid = plc1.cmd(sys.executable + ' plc1.py &')
+    print(plc1Pid)
     time.sleep(0.5)
-    plc1.cmd('while true; do `' + sys.executable + ' plc1.py` && break; done &')
+    pcl2Pid = plc2.cmd(sys.executable + ' plc2.py &')
+    print(pcl2Pid)
     time.sleep(0.5)
-    plc2.cmd('while true; do `' + sys.executable + ' plc2.py` && break; done &')
-    time.sleep(0.5)
-    s1.cmd('while true; do `' + sys.executable + ' physical_process.py` && break; done &')
+    s1.cmd(sys.executable + ' physical_process.py &')
 
     print("Devices started")
 
     running = True
+
+    CLI(net)
 
     return '\nServer started.\n'   
 
