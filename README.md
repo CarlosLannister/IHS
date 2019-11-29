@@ -5,11 +5,15 @@
 [![Python 3](https://pyup.io/repos/github/CarlosLannister/IHS/python-3-shield.svg)](https://pyup.io/repos/github/CarlosLannister/IHS/)
 
 # IHS
-Industrial Hacking Simulator
+Industrial Hacking Simulator it is a repository with ICS scenarios built with minicps. 
 
 ## Requirements 
 https://github.com/CarlosLannister/IHS/wiki/1.-Installation-Tutorial
 
 
 ## Launch Water Tower Scenario
+
+![Water Tower](https://raw.githubusercontent.com/CarlosLannister/IHS/master/waterTower/waterTower.png)
+
+
 https://github.com/CarlosLannister/IHS/wiki/2.-WaterTower-Tutorial
