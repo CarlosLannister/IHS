@@ -7,7 +7,7 @@
 # IHS
 Industrial Hacking Simulator (IHS) is a repository with ICS scenarios built with minicps. IHS scenarios heavily relay on Minicps. Minicps is the work of Security of Cyber-Physical Systems group, [https://github.com/scy-phy](https://github.com/scy-phy). And one of his main maintainers was [Daniele Antonioli](https://github.com/francozappa).  
 
-Minicps original repo seems to be abandoned so we are using a [fork](https://github.com/CarlosLannister/minicps) maintaned repo that works with Python3. Check the wiki in you want to [contribute]( https://github.com/CarlosLannister/IHS/wiki/5.-Wanting-to-contribute-!!!)   
+Minicps original repo seems to be abandoned so we are using a [fork](https://github.com/CarlosLannister/minicps) maintained repo that works with Python3. Check the wiki in you want to [contribute]( https://github.com/CarlosLannister/IHS/wiki/5.-Wanting-to-contribute-!!!)   
 
 ## Requirements 
 https://github.com/CarlosLannister/IHS/wiki/1.-Installation-Tutorial
