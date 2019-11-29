@@ -24,6 +24,8 @@ $(document).ready(function(){
             value = "80";
         }else if (number > 0.9 && number < 1){
             value = "90";
+        }else if (number < 0.1){
+            value = "0";
         }
 
         number = Math.trunc(msg.number * 1000); 
