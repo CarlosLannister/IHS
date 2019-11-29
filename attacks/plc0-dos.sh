@@ -8,16 +8,17 @@
 cd "$(dirname -- "$0")" || exit $?
 
 if [[ $# -ne 3 ]]; then
-    echo >&2 "Usage: $0 IP1 IP2 IFACE"
-    exit 1
+    T1="192.168.1.10"
+    T2="192.168.1.20"
+    ATT_IFACE="attacker-eth0"
+else
+    T1="$1"
+    T2="$2"
+    ATT_IFACE="$3"
 fi
-T1="$1"
-T2="$2"
-ATT_IFACE="$3"
 PCAP_FILE="arp-mitm-active.pcap"
-#ETTERFILTER_NAME="dos-test"
 ETTERFILTER_NAME="dos-plc0"
-echo here
+
 # log everything in files
 exec >> ../../temp/arppoison-mitm.out 2>> ../../temp/arppoison-mitm.err
 
