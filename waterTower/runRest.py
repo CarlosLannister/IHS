@@ -53,7 +53,7 @@ def dos():
     global net
 
     with open('/tmp/webapp-cmd', 'w') as f:
-        f.write('attacker bash ../attacks/plc0-dos.sh')
+        f.write('attacker sh -x ../attacks/plc0-dos.sh & sh -x ../attacks/plc2-dos.sh &')
 
     try:
         with open('/tmp/webapp-log', 'r') as f:
@@ -71,7 +71,7 @@ def dos():
         with open('/tmp/webapp-log', 'w') as f:
             new=''
 
-    return new[len(old):]
+    return Response(status=400) 
 
 
 
