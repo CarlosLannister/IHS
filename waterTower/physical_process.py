@@ -13,7 +13,7 @@ from minicps.devices import Tank
 from utils import PUMP_FLOWRATE_IN, PUMP_FLOWRATE_OUT
 from utils import TANK_SECTION
 from utils import LIT_101_M, RWT_INIT_LEVEL
-from utils import STATE, PP_PERIOD_SEC, PP_PERIOD_HOURS, PP_SAMPLES
+from utils import STATE, PP_PERIOD_SEC, PP_PERIOD_HOURS
 
 import time
 
