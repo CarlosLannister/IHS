@@ -1,71 +1,92 @@
-# Start with a basic flask app webpage.
-from flask_socketio import SocketIO, emit
-from flask import Flask, render_template
-from threading import Thread, Event
+"""
+WaterTower scada.py
+"""
 import sqlite3
 
+from minicps.devices import SCADAServer
+
+from utils import PLC1_DATA, STATE, SCADA_PROTOCOL, SCADA_ADDR
 
 
-__author__ = 'slynn'
-
-app = Flask(__name__)
-app.config['SECRET_KEY'] = 'secret!' #Generate a personal secret key for production use !!!!!. It should be random and secret. 
-app.config['DEBUG'] = True #Do not forget to turnoff debug mode it is a production environment. 
-
-#turn the flask app into a socketio app
-socketio = SocketIO(app, async_mode=None, logger=True, engineio_logger=True)
-
-#random number Generator Thread
-thread = Thread()
-thread_stop_event = Event()
-
-def waterLevels():
-
-    print("Getting waterLevels")
-    db = sqlite3.connect('file:swat_s1_db.sqlite?mode=ro', uri=True, timeout=3)
-    cursorObj = db.cursor()
-    while not thread_stop_event.isSet():
-        
-        cursorObj.execute('SELECT name, value FROM swat_s1 WHERE name="LIT101"')
-        level = cursorObj.fetchall()
-        waterLevel = level[0][1]
-
-        cursorObj.execute('SELECT name, value FROM swat_s1 WHERE name="MV001"')
-        MV001 = cursorObj.fetchall()[0][1]
-
-        cursorObj.execute('SELECT name, value FROM swat_s1 WHERE name="P201"')
-        P201 = cursorObj.fetchall()[0][1]
-
-        db.commit()
-        
-        socketio.emit('newnumber', {'number': waterLevel, 'MV001' : MV001, 'P201': P201}, namespace='/test')
-        socketio.sleep(0.3)
-
-    cursorObj.close()
-    db.close()
-        
+from utils import MQTT_SERVER
+import paho.mqtt.client as mqtt
+import time
 
 
-@app.route('/')
-def index():
-    #only by sending this page first will the client be connected to the socketio instance
-    return render_template('index.html')
+MV001 = ('MV001', 0)
+LIT101 = ('LIT101', 1)
+P201 = ('P201', 2)
 
-@socketio.on('connect', namespace='/test')
-def test_connect():
-    # need visibility of the global thread object
-    global thread
-    print('Client connected')
+class ScadaServer(SCADAServer):
 
-    #Start the random number generator thread only if the thread has not been started before.
-    if not thread.isAlive():
-        print("Starting Thread")
-        thread = socketio.start_background_task(waterLevels)
+    # Callback when the client connects to the MQTT broker
+    def on_connect(self, client, userdata, flags, rc):
+        print("Connected with result code "+str(rc))
 
-@socketio.on('disconnect', namespace='/test')
-def test_disconnect():
-    print('Client disconnected')
+        self.client.subscribe("actions")
+
+    # The callback for when a PUBLISH message is received from the server.
+    def on_message(self, client, userdata, msg):
+
+        print(msg.topic+" "+str(msg.payload))
+        # Here we should execute the methods On/Off to send the message to the RTU
+        # This send should be in such way for the switch to understand what to do on which plc
+        # self.send(P201, 1, PLC2_ADDR)
 
 
-if __name__ == '__main__':
-    socketio.run(app)
+    def plcOn(self, subnet, plc_addr):
+        #TODO
+        #self.send(MV001, 1, PLC0_ADDR)
+
+        pass
+
+    def plcOff(self, plc_addr):
+        pass
+
+
+    def pre_loop(self, sleep=0.5):
+        print('DEBUG: SCADA server enters pre_loop')
+
+        #Start MQTT client on background
+        self.client = mqtt.Client()
+        self.client.connect(MQTT_SERVER)
+        self.client.on_connect = self.on_connect
+        self.client.on_message = self.on_message
+        self.client.loop_start()
+
+        time.sleep(sleep)
+
+    def main_loop(self):
+        """Scada main loop.
+            - reads RTU values
+            - stores info in database
+            - 
+        """
+        print('DEBUG: SCADA server enters main_loop.')
+        print()
+
+        while(True):
+            # Each X seconds gets the data from the RTU
+            #plc0 = self.receive(MV001, RTU_ADDR)
+            
+            #plc2 = self.receive(P201, RTU_ADDR)
+
+            #water_level = self.receive(LIT101, RTU_ADDR)
+
+            plc0 = 1
+            plc2 = 1
+            water_level = 600.0
+            #Pushes values to the MQTT broken
+            message = {'plc0': plc0, 'plc1': plc1, 'water_level': water_level}
+            client.publish("scada", message)
+
+            time.sleep(SCADA_LOOP)
+
+
+if __name__ == "__main__":
+
+    # notice that memory init is different form disk init
+    scada = ScadaServer(
+        name='scada',
+        state=STATE,
+        protocol=SCADA_PROTOCOL)

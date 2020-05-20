@@ -1,28 +1,25 @@
 
 """
-swat-s1 plc0
+scenario plc0
 """
 
 from minicps.devices import PLC
 from utils import PLC0_DATA, STATE, PLC0_PROTOCOL
-from utils import PLC_SAMPLES, PLC_PERIOD_SEC
+from utils import PLC_PERIOD_SEC
 from utils import IP
 
 import time
 
 PLC0_ADDR = IP['plc0']
-PLC1_ADDR = IP['plc1']
-PLC2_ADDR = IP['plc2']
 
-# Motorized Valve
+# Motorized Valve Tag
 MV001 = ('MV001', 0)
 
 
-class SwatPLC0(PLC):
+class ScenarioPLC0(PLC):
 
     def pre_loop(self, sleep=0.1):
-        print('DEBUG: swat-s1 plc0 enters pre_loop')
-        print()
+        print('[DEBUG] PLC0 - Enters pre loop\n')
 
         time.sleep(sleep)
 
@@ -33,24 +30,24 @@ class SwatPLC0(PLC):
             - opens or closes the valve
         """
 
-        print('DEBUG: swat-s1 plc0 enters main_loop.')
-        print()
+        print('[DEBUG] PLC0 - Enters main loop\n')
 
-        count = 0
-        while(count <= PLC_SAMPLES):
-
+        while True:
             mv001 = int(self.receive(MV001, PLC0_ADDR))
-            print("DEBUG PLC0 - received mv001: %f" % mv001)
-            if mv001 != 0:
+            if mv001 != 0:      # receives 0 when error
                 self.set(MV001, mv001)
+                if mv001 == 1:
+                    print("[DEBUG] PLC0 - Open valve")
+                if mv001 == 2:
+                    print("[DEBUG] PLC0 - Close valve")
 
             time.sleep(PLC_PERIOD_SEC)
-            count += 1
+
 
 if __name__ == "__main__":
 
     # notice that memory init is different form disk init
-    plc0 = SwatPLC0(
+    plc0 = ScenarioPLC0(
         name='plc0',
         state=STATE,
         protocol=PLC0_PROTOCOL,

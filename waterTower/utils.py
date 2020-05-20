@@ -57,10 +57,19 @@ LIT_101_M = {  # raw water tank m
     'HH': 1.200,
 }
 
+# Scada parameters
+
+SCADA_LOOP = 1
+
+
+MQTT_SERVER = '127.0.0.1'
+MQTT_PORT = 1883
+
+#
 
 TANK_HEIGHT = 1.600  # m
 
-PLC_PERIOD_SEC = 0.40  # plc update rate in seconds
+PLC_PERIOD_SEC = 0.60  # plc update rate in seconds
 PLC_PERIOD_HOURS = PLC_PERIOD_SEC / 3600.0
 PLC_SAMPLES = 100000000
 
@@ -79,8 +88,10 @@ FIT_201_THRESH = 1.00
 IP = {
     'plc0': '192.168.1.10',
     'plc1': '192.168.1.20',
+    'rtu': '192.168.1.20',
     'plc2': '192.168.1.30',
     'attacker': '192.168.1.77',
+    'scada': '192.168.1.150'
 }
 
 NETMASK = '/24'
@@ -88,8 +99,10 @@ NETMASK = '/24'
 MAC = {
     'plc0': '00:1D:9C:C6:A0:60',
     'plc1': '00:1D:9C:C7:B0:70',
+    'rtu': '00:1D:9C:C7:B0:71',
     'plc2': '00:1D:9C:C8:BC:46',
     'attacker': 'AA:AA:AA:AA:AA:AA',
+    'scada': 'BB:BB:BB:BB:BB:BB'
 }
 
 
@@ -108,6 +121,7 @@ PLC2_DATA = {
 }
 
 
+
 # SPHINX_SWAT_TUTORIAL PLC0 UTILS(
 PLC0_ADDR = IP['plc0']
 PLC0_TAGS = (
@@ -123,10 +137,16 @@ PLC0_PROTOCOL = {
     'mode': 1,
     'server': PLC0_SERVER
 }
+
+
+
 # SPHINX_SWAT_TUTORIAL PLC1 UTILS(
+# RTU UTILS
+
+
 PLC1_ADDR = IP['plc1']
+RTU_ADDR = IP['plc1']
 PLC1_TAGS = (
-    ('FIT101', 1, 'REAL'),
     ('LIT101', 1, 'REAL'),
     # interlocks does NOT go to the statedb
 )
@@ -134,12 +154,42 @@ PLC1_SERVER = {
     'address': PLC1_ADDR,
     'tags': PLC1_TAGS
 }
+
 PLC1_PROTOCOL = {
     'name': 'enip',
     'mode': 1,
     'server': PLC1_SERVER
 }
-# SPHINX_SWAT_TUTORIAL PLC1 UTILS)
+
+
+RTU_TAGS = (
+    ('LIT101', 1, 'REAL')
+)
+RTU_SERVER = {
+    'address': RTU_ADDR,
+    'tags': RTU_TAGS
+}
+RTU_PROTOCOL = {
+    'name': 'enip',
+    'mode': 1,
+    'server': PLC1_SERVER
+}
+
+# SCADA values
+
+SCADA_ADDR = IP['scada']
+SCADA_TAGS = ()
+SCADA_SERVER = {
+    'address': SCADA_ADDR,
+    'tags': SCADA_TAGS
+}
+SCADA_PROTOCOL = {
+    'name': 'enip',
+    'mode': 1,
+    'server': SCADA_SERVER
+}
+
+# PLC1 UTILS)
 
 PLC2_ADDR = IP['plc2']
 PLC2_TAGS = (
@@ -157,8 +207,19 @@ PLC2_PROTOCOL = {
     'server': PLC2_SERVER
 }
 
-# state {{{1
-# SPHINX_SWAT_TUTORIAL STATE(
+# Test protocol
+PLC3_TAGS = (10, 10, 10, 10)
+PLC3_SERVER = {
+    'address': PLC2_ADDR,
+    'tags': PLC3_TAGS
+}
+PLC3_PROTOCOL = {
+    'name': 'modbus',
+    'mode': 1,
+    'server': PLC3_SERVER
+}
+
+# state TODO change name
 PATH = 'swat_s1_db.sqlite'
 NAME = 'swat_s1'
 
@@ -166,7 +227,9 @@ STATE = {
     'name': NAME,
     'path': PATH
 }
-# SPHINX_SWAT_TUTORIAL STATE)
+
+
+# WaterTower subnet initial state
 
 SCHEMA = """
 CREATE TABLE swat_s1 (
