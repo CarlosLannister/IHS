@@ -10,15 +10,12 @@ from mininet.link import Intf
 
 class ScenarioTopo(Topo):
 
-    """SWaT 3 plcs + attacker + private dirs."""
+    """Topology of the scenario"""
 
     def build(self):
 
         switch = self.addSwitch('s1')
 
-        switch2 = self.addSwitch('s2')
-        self.addLink(switch2, switch)
-        
         plc0 = self.addHost(
             'plc0',
             ip=IP['plc0'] + NETMASK,
@@ -43,7 +40,10 @@ class ScenarioTopo(Topo):
             mac=MAC['attacker'])
         self.addLink(attacker, switch)
 
-        # Remove when using distributed system
+
+        switch2 = self.addSwitch('s2')
+        self.addLink(switch2, switch)
+
         scada = self.addHost(
             'scada',
             ip=IP['scada'] + NETMASK,

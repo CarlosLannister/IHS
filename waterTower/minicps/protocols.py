@@ -171,7 +171,6 @@ class EnipProtocol(Protocol):
     def __init__(self, protocol):
 
         super(EnipProtocol, self).__init__(protocol)
-
         self._client_cmd = sys.executable + ' -m cpppo.server.enip.client '
 
         # NOTE: set up logging
@@ -324,7 +323,6 @@ class EnipProtocol(Protocol):
         :returns: list of strings generated with shlex.split,
                   passable to subprocess.Popen object
         """
-
         CMD = sys.executable + ' -m cpppo.server.enip '
         PRINT_STDOUT = '--print '
         HTTP = '--web %s:80 ' % address[0:address.find(':')]

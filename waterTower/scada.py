@@ -5,8 +5,8 @@ import sqlite3
 
 from minicps.devices import SCADAServer
 
-from utils import PLC1_DATA, STATE, SCADA_PROTOCOL, SCADA_ADDR
-
+from utils import PLC1_DATA, STATE, SCADA_PROTOCOL, SCADA_LOOP 
+from utils import SCADA_ADDR, RTU_ADDR
 
 from utils import MQTT_SERVER
 import paho.mqtt.client as mqtt
@@ -48,11 +48,13 @@ class ScadaServer(SCADAServer):
         print('DEBUG: SCADA server enters pre_loop')
 
         #Start MQTT client on background
+        '''
         self.client = mqtt.Client()
         self.client.connect(MQTT_SERVER)
         self.client.on_connect = self.on_connect
         self.client.on_message = self.on_message
         self.client.loop_start()
+        '''
 
         time.sleep(sleep)
 
@@ -62,23 +64,22 @@ class ScadaServer(SCADAServer):
             - stores info in database
             - 
         """
-        print('DEBUG: SCADA server enters main_loop.')
-        print()
+        print('DEBUG: SCADA server enters main_loop.\n')
 
         while(True):
             # Each X seconds gets the data from the RTU
-            #plc0 = self.receive(MV001, RTU_ADDR)
+            water_level = float(self.receive(LIT101, SCADA_ADDR))
             
-            #plc2 = self.receive(P201, RTU_ADDR)
+            print("[DEBUG] Water level:", water_level)
 
             #water_level = self.receive(LIT101, RTU_ADDR)
 
-            plc0 = 1
-            plc2 = 1
-            water_level = 600.0
+            #plc0 = 1
+            #plc2 = 1
+            #water_level = 600.0
             #Pushes values to the MQTT broken
-            message = {'plc0': plc0, 'plc1': plc1, 'water_level': water_level}
-            client.publish("scada", message)
+            #message = {'plc0': plc0, 'plc1': plc1, 'water_level': water_level}
+            #client.publish("scada", message)
 
             time.sleep(SCADA_LOOP)
 

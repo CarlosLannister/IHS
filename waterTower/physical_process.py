@@ -1,7 +1,7 @@
 """
-SWaT sub1 physical process
+physical process
 
-RawWaterTank has an inflow pipe and outflow pipe, both are modeled according
+Water Tank has an inflow pipe and outflow pipe, both are modeled according
 to the equation of continuity from the domain of hydraulics
 (pressurized liquids) and a drain orefice modeled using the Bernoulli's
 principle (for the trajectories).
@@ -27,7 +27,7 @@ FIT101 = ('FIT101', 1)
 
 
 # TODO: implement orefice drain with Bernoulli/Torricelli formula
-class RawWaterTank(Tank):
+class WaterTank(Tank):
 
     def pre_loop(self):
 
@@ -39,10 +39,7 @@ class RawWaterTank(Tank):
 
     def main_loop(self):
 
-        count = 0
         while True: # Do not stop the flow of water 
-            print("DEBUG COUNT" + str(count))
-
             new_level = self.level
 
             # compute water volume
@@ -51,21 +48,21 @@ class RawWaterTank(Tank):
             # inflows volumes
             mv001 = int(self.get(MV001))
             if mv001 == 1:
-                self.set(FIT101, PUMP_FLOWRATE_IN)
                 inflow = PUMP_FLOWRATE_IN * PP_PERIOD_HOURS
-                print("DEBUG RawWaterTank inflow: ", inflow)
+                print("[DEBUG] Water Tank inflow ")
                 water_volume += inflow
             else:
-                self.set(FIT101, 0.00)
+                pass
 
             # outflows volumes
             p201 = int(self.get(P201))
             if p201 == 1:
                 outflow = PUMP_FLOWRATE_OUT * PP_PERIOD_HOURS
-                print("DEBUG RawWaterTank outflow: ", outflow)
+                print("[DEBUG] Water Tank outflow ")
                 water_volume -= outflow
             else:
                 pass
+
             # compute new water_level
             new_level = water_volume / self.section
 
@@ -74,26 +71,25 @@ class RawWaterTank(Tank):
                 new_level = 0.0
 
             # update internal and state water level
-            print("DEBUG new_level: %.5f \t delta: %.5f" % (new_level, new_level - self.level))
+            print("[DEBUG] New level: %.5f \t delta: %.5f" % (new_level, new_level - self.level))
             self.level = self.set(LIT101, new_level)
 
-            # TODO overflow
+            # TODO add more warnings
             if new_level >= LIT_101_M['HH']:
-                print('DEBUG RawWaterTank above HH count: ', count)
-                break
+                print('[DEBUG] Water Tank above Highest limit: ', LIT_101_M['HH'])
+                #break
 
             # TODO underflow
             elif new_level <= LIT_101_M['LL']:
-                print('DEBUG RawWaterTank below LL count: ', count)
+                print('[DEBUG] Water Tank below Lowest limit: ', LIT_101_M['LL'])
                 #break
 
-            count += 1
             time.sleep(PP_PERIOD_SEC)
 
 
 if __name__ == '__main__':
 
-    rwt = RawWaterTank(
+    wt = WaterTank(
         name='rwt',
         state=STATE,
         protocol=None,

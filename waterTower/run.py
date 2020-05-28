@@ -11,7 +11,7 @@ import sys
 from mininet.link import Intf
 from mininet.util import quietRun
 
-from topo import SwatTopo
+from topo import ScenarioTopo
 
 
 def checkIntf( intf ):
@@ -58,7 +58,7 @@ class SwatS1CPS(MiniCPS):
 
 if __name__ == "__main__":
 
-    topo = SwatTopo()
+    topo = ScenarioTopo()
     net = Mininet(topo=topo)
 
     swat_s1_cps = SwatS1CPS(

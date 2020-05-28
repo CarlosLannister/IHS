@@ -86,12 +86,12 @@ FIT_201_THRESH = 1.00
 
 # topo {{{1
 IP = {
-    'plc0': '192.168.1.10',
-    'plc1': '192.168.1.20',
-    'rtu': '192.168.1.20',
-    'plc2': '192.168.1.30',
-    'attacker': '192.168.1.77',
-    'scada': '192.168.1.150'
+    'plc0': '10.168.1.10',
+    'plc1': '10.168.1.20',
+    'rtu': '10.168.1.20',
+    'plc2': '10.168.1.30',
+    'attacker': '10.168.1.77',
+    'scada': '10.168.1.150'
 }
 
 NETMASK = '/24'
@@ -178,7 +178,9 @@ RTU_PROTOCOL = {
 # SCADA values
 
 SCADA_ADDR = IP['scada']
-SCADA_TAGS = ()
+SCADA_TAGS = (
+    ('LIT101', 1, 'REAL'),
+)
 SCADA_SERVER = {
     'address': SCADA_ADDR,
     'tags': SCADA_TAGS

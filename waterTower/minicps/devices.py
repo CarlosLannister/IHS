@@ -569,7 +569,6 @@ class RTU(Device):
             for i in range(len(self.protocols)):
 
                 if self.protocols[i]['name'] == protocol_name:
-                    print("jiji")
                     return self._protocols[i]._send(what, value, address, **kwargs)
 
             print('ERROR: %s protocol not supported.' % self.protocol)
@@ -584,7 +583,6 @@ class RTU(Device):
         else:
             for i in range(len(self.protocols)):
                 if self.protocols[i]['name'] == protocol_name:
-                    print("jaja")
                     return self._protocols[i]._receive(what, address, **kwargs)
 
             print('ERROR: %s protocol not supported.' % self.protocol)
