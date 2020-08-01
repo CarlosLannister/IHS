@@ -34,13 +34,13 @@ def handle_connect(client, userdata, flags, rc):
 @mqtt.on_message()
 def handle_mqtt_message(client, userdata, message):
     payload = message.payload.decode()
-    print(payload)
+    print("payload = " + payload)
     socketio.emit('newnumber', {'number': payload['water_level'], 'MV001' : payload['plc0'], 'P201': payload['plc1']}, 
     	namespace='/test')
 
 @mqtt.on_log()
 def handle_logging(client, userdata, level, buf):
-    print(level, buf)
+    print("level: " + level + "buf: " + buf)
 
 
 @socketio.on('connect', namespace='/test')

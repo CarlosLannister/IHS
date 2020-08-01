@@ -50,6 +50,17 @@ class ScenarioTopo(Topo):
             mac=MAC['scada'])
         self.addLink(scada, switch2)
 
+        #internet host
+
+
+        switch3 = self.addSwitch('s3')
+        #internet = self.addHost('internet', ip='10.0.2.14') 
+        internet = self.addHost('internet', ip='0.0.0.0') 
+        self.addLink(scada, switch3)
+        self.addLink(internet, switch3)
+        #Intf( 'inter', node=switch3 )
+
+        #self.addNAT().configDefault()
 
 if __name__ == '__main__':
     """Test MixTopo."""

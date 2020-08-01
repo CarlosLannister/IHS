@@ -62,7 +62,7 @@ LIT_101_M = {  # raw water tank m
 SCADA_LOOP = 1
 
 
-MQTT_SERVER = '127.0.0.1'
+MQTT_SERVER = '10.0.2.15'
 MQTT_PORT = 1883
 
 #

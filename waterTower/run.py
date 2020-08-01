@@ -48,10 +48,13 @@ class SwatS1CPS(MiniCPS):
         net.pingAll()
 
         # start devices
-        self.net.get('plc0', 'rtu', 'plc2', 's1')
-
+        self.net.get('plc0', 'rtu', 'plc2', 's1', 's2', 's3', 'scada')
+        
         print("Devices started")
         
+        #internet
+        internet = self.net.get('internet')
+        internet.cmdPrint('ifconfig ' + internet.defaultIntf().name + ' 10.0.2.20')
         CLI(self.net)
 
         net.stop()

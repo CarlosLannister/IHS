@@ -48,13 +48,13 @@ class ScadaServer(SCADAServer):
         print('DEBUG: SCADA server enters pre_loop')
 
         #Start MQTT client on background
-        '''
+        
         self.client = mqtt.Client()
         self.client.connect(MQTT_SERVER)
         self.client.on_connect = self.on_connect
         self.client.on_message = self.on_message
         self.client.loop_start()
-        '''
+        
 
         time.sleep(sleep)
 
@@ -74,12 +74,13 @@ class ScadaServer(SCADAServer):
 
             #water_level = self.receive(LIT101, RTU_ADDR)
 
-            #plc0 = 1
-            #plc2 = 1
+            plc0 = 1
+            plc2 = 1
             #water_level = 600.0
             #Pushes values to the MQTT broken
-            #message = {'plc0': plc0, 'plc1': plc1, 'water_level': water_level}
-            #client.publish("scada", message)
+            print("pushing message")
+            message = {'plc0': plc0, 'plc1': plc1, 'water_level': water_level}
+            client.publish("scada", message)
 
             time.sleep(SCADA_LOOP)
 
