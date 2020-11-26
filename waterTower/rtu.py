@@ -4,7 +4,7 @@ rtu
 
 #from minicps.devices import RTU
 
-from minicps.devices import RTU
+from minicps.devices import RTU, PLC
 from utils import PLC1_DATA, STATE, PLC1_PROTOCOL, RTU_PROTOCOL
 from utils import PLC_PERIOD_SEC, PLC_SAMPLES
 from utils import IP, LIT_101_M
@@ -12,20 +12,22 @@ from utils import SCADA_ADDR, PLC0_ADDR, PLC2_ADDR, RTU_ADDR
 
 import time
 
-ManualMode = ('MM', 0)
+#MODE = ('MODE', 1) # 0 error / 1 automatic / 2 manual mode
+#COMMAND = ('COMMAND', 0) # 0 error / 1 automatic / 2 -> close plc0 / 3 -> open plc0 / 4 -> close plc0 / 5 -> open plc0 / 
+
+MODE = ('MODE', 1) # 0 error / 1 automatic / 2 -> close plc0 / 3 -> open plc0 / 4 -> close plc0 / 5 -> open plc0 / 
 
 MV001 = ('MV001', 0)
 LIT101 = ('LIT101', 1)
 P201 = ('P201', 2)
 FLAG = ('flag(thisisaflag)', 2)
 
-CO_0_2a = ('CO', 0, '2a')
-
-class ScenarioRTU(RTU):
+class ScenarioRTU(PLC):
 
     def pre_loop(self, sleep=0.1):
         print('[DEBUG] RTU - Enters pre loop\n')
-
+        self.auto = True
+        self.mode = 1
         time.sleep(sleep)
 
     def main_loop(self):
@@ -41,41 +43,71 @@ class ScenarioRTU(RTU):
         while True:
             # reads water level
             water_level = float(self.get(LIT101))
-        
             print('[DEBUG] Water level: %.5f' % water_level)
 
-            # TODO this would go to the SCADA
-            self.send(LIT101, water_level, SCADA_ADDR, "enip")
+            # Sends water level to scaa
+            self.send(LIT101, water_level, SCADA_ADDR)
 
-            # Hit the first overflow threshold
-            if water_level >= LIT_101_M['H']:
-                print("[WARNING] Water level over soft high -> close mv001 and open p201")
-                
-                # Overflow!!!    
-                if water_level >= LIT_101_M['HH']:
-                    print("[WARNING] OVERFLOW!! %.2f >= %.2f." % (water_level, LIT_101_M['HH']))
-                    #TODO overflow flag here?
-                
-                # PLC1 informs PLC0 to close the valve mv001
-                self.send(MV001, 2, PLC0_ADDR, "enip")
+            #Checks mode
+            try:
+                self.mode = int(self.receive(MODE, RTU_ADDR))
+            except:
+                print("AAAAAAARGH")
+                self.mode = 0
 
-                # PLC1 informs PLC2 to open the pump p201
-                self.send(P201, 1, PLC2_ADDR, "enip")
-            
-            # Hit the first underflow threshold
-            elif water_level <= LIT_101_M['L']:
-                print("[WARNING] Water level under soft low -> open mv101 and close p201")
-                
-                # Underflow!!!
-                if water_level <= LIT_101_M['LL']:
-                    print("[WARNING] UNDERFLOW!! %.2f <= %.2f." % (water_level, LIT_101_M['LL']))
-                    #TODO underflow flag here
-                
-                # PLC1 informs PLC0 to open the valve mv001
-                self.send(MV001, 1, PLC0_ADDR, "enip")
+            print("MODE ==== " + str(self.mode))
 
-                # PLC1 informs PLC2 to close the pump p201
-                self.send(P201, 2, PLC2_ADDR, "enip")
+            if self.mode != 0:
+                if self.mode == 1:
+                   self.auto = True
+                else:
+                    self.auto = False
+        
+            if not self.auto:
+                print("tadaa")
+                # OPEN PLC1
+                if self.mode == 2:
+                    self.send(MV001, 2, PLC0_ADDR)
+                # CLOSE PLC1
+                elif self.mode == 3:
+                    self.send(MV001, 1, PLC0_ADDR)
+                # OPEN PLC2
+                elif self.mode == 4:
+                    self.send(P201, 1, PLC2_ADDR)
+                # CLOSE PLC2
+                elif self.mode == 5:
+                    self.send(P201, 2, PLC2_ADDR)
+
+            else:
+                # Automatic run 
+                # Hit the first OVERFLOW threshold
+                if water_level >= LIT_101_M['H']:
+                    print("[WARNING] Water level over soft high -> close mv001 and open p201")
+                    # OVERFLOW!!!    
+                    if water_level >= LIT_101_M['HH']:
+                        print("[WARNING] OVERFLOW!! %.2f >= %.2f." % (water_level, LIT_101_M['HH']))
+                        #TODO overflow flag here?
+                    
+
+                    # PLC1 informs PLC0 to close the valve mv001
+                    self.send(MV001, 2, PLC0_ADDR)
+                    # PLC1 informs PLC2 to open the pump p201
+                    self.send(P201, 1, PLC2_ADDR)
+                
+                # Hit the first underflow threshold
+                elif water_level <= LIT_101_M['L']:
+                    print("[WARNING] Water level under soft low -> open mv101 and close p201")
+                    
+                    # Underflow!!!
+                    if water_level <= LIT_101_M['LL']:
+                        print("[WARNING] UNDERFLOW!! %.2f <= %.2f." % (water_level, LIT_101_M['LL']))
+                        #TODO underflow flag here
+                    
+                    # PLC1 informs PLC0 to open the valve mv001
+                    self.send(MV001, 1, PLC0_ADDR)
+
+                    # PLC1 informs PLC2 to close the pump p201
+                    self.send(P201, 2, PLC2_ADDR)
 
 
 
@@ -89,6 +121,6 @@ if __name__ == "__main__":
     rtu = ScenarioRTU(
         name='rtu',
         state=STATE,
-        protocols=[RTU_PROTOCOL],
+        protocol=RTU_PROTOCOL,
         memory=PLC1_DATA,
         disk=PLC1_DATA)

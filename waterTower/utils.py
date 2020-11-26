@@ -163,7 +163,9 @@ PLC1_PROTOCOL = {
 
 
 RTU_TAGS = (
-    ('LIT101', 1, 'REAL')
+    ('LIT101', 1, 'REAL'),
+    ('COMMAND', 0, 'INT'),
+    ('MODE', 0, 'INT')
 )
 RTU_SERVER = {
     'address': RTU_ADDR,
@@ -177,9 +179,12 @@ RTU_PROTOCOL = {
 
 # SCADA values
 
+
 SCADA_ADDR = IP['scada']
 SCADA_TAGS = (
     ('LIT101', 1, 'REAL'),
+    ('COMMAND', 0, 'INT'),
+    ('MODE', 0, 'INT')
 )
 SCADA_SERVER = {
     'address': SCADA_ADDR,
@@ -249,4 +254,32 @@ SCHEMA_INIT = """
     
     INSERT INTO swat_s1 VALUES ('P201',     2, '2');
     INSERT INTO swat_s1 VALUES ('FIT201',   2, '2.45');
+"""
+
+# state TODO change name
+PATH2 = 'hmi_db.sqlite'
+NAME2 = 'hmi'
+
+STATE2 = {
+    'name': NAME2,
+    'path': PATH2
+}
+
+SCHEMA2 = """
+CREATE TABLE hmi (
+    name              TEXT NOT NULL,
+    pid               INTEGER NOT NULL,
+    value             TEXT,
+    PRIMARY KEY (name, pid)
+);
+"""
+
+SCHEMA_INIT2 = """
+    INSERT INTO hmi VALUES ('FIT101',   1, '2.55');
+    INSERT INTO hmi VALUES ('MV001',    0, '1');
+    INSERT INTO hmi VALUES ('LIT101',   1, '0.500');
+    
+    INSERT INTO hmi VALUES ('P201',     2, '2');
+    INSERT INTO hmi VALUES ('FIT201',   2, '2.45');
+    INSERT INTO hmi VALUES ('MODE',   0, '1');
 """

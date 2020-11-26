@@ -8,10 +8,16 @@ from minicps.devices import SCADAServer
 from utils import PLC1_DATA, STATE, SCADA_PROTOCOL, SCADA_LOOP 
 from utils import SCADA_ADDR, RTU_ADDR
 
-from utils import MQTT_SERVER
-import paho.mqtt.client as mqtt
+from threading import Thread, Event
+import sqlite3
+
 import time
 
+
+#MODE = ('MODE', 1) # 0 error / 1 automatic / 2 manual mode
+#COMMAND = ('COMMAND', 0) # 0 error / 1 automatic / 2 -> close plc0 / 3 -> open plc0 / 4 -> close plc0 / 5 -> open plc0 / 
+
+MODE = ('MODE', 1) # 0 error / 1 automatic / 2 -> close plc0 / 3 -> open plc0 / 4 -> close plc0 / 5 -> open plc0 / 
 
 MV001 = ('MV001', 0)
 LIT101 = ('LIT101', 1)
@@ -19,25 +25,9 @@ P201 = ('P201', 2)
 
 class ScadaServer(SCADAServer):
 
-    # Callback when the client connects to the MQTT broker
-    def on_connect(self, client, userdata, flags, rc):
-        print("Connected with result code "+str(rc))
-
-        self.client.subscribe("actions")
-
-    # The callback for when a PUBLISH message is received from the server.
-    def on_message(self, client, userdata, msg):
-
-        print(msg.topic+" "+str(msg.payload))
-        # Here we should execute the methods On/Off to send the message to the RTU
-        # This send should be in such way for the switch to understand what to do on which plc
-        # self.send(P201, 1, PLC2_ADDR)
-
-
     def plcOn(self, subnet, plc_addr):
         #TODO
         #self.send(MV001, 1, PLC0_ADDR)
-
         pass
 
     def plcOff(self, plc_addr):
@@ -46,15 +36,7 @@ class ScadaServer(SCADAServer):
 
     def pre_loop(self, sleep=0.5):
         print('DEBUG: SCADA server enters pre_loop')
-
-        #Start MQTT client on background
-        '''
-        self.client = mqtt.Client()
-        self.client.connect(MQTT_SERVER)
-        self.client.on_connect = self.on_connect
-        self.client.on_message = self.on_message
-        self.client.loop_start()
-        '''
+        self.thread_stop_event = Event()
 
         time.sleep(sleep)
 
@@ -71,15 +53,25 @@ class ScadaServer(SCADAServer):
             water_level = float(self.receive(LIT101, SCADA_ADDR))
             
             print("[DEBUG] Water level:", water_level)
+            # TODO guarda en la base de datos
+
+            #mira si hay comando
+            #check database
+            db = sqlite3.connect('file:hmi_db.sqlite?mode=ro', uri=True, timeout=3)
+            cursorObj = db.cursor()
+            cursorObj.execute('SELECT name, value FROM hmi WHERE name="MODE"')
+            mode = cursorObj.fetchall()[0][1]
+
+            db.commit()
+            db.close()
+
+            print("MODE == " + str(mode))
+
+            if mode != 0:
+                self.send(MODE, mode, RTU_ADDR)
 
             #water_level = self.receive(LIT101, RTU_ADDR)
 
-            #plc0 = 1
-            #plc2 = 1
-            #water_level = 600.0
-            #Pushes values to the MQTT broken
-            #message = {'plc0': plc0, 'plc1': plc1, 'water_level': water_level}
-            #client.publish("scada", message)
 
             time.sleep(SCADA_LOOP)
 
