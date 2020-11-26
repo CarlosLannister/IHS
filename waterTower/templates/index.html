@@ -18,13 +18,17 @@
 
     <div class="container" id="content">
         <div class="row">
-            <a href="http://localhost:5000/start"  target="_blank" class="btn btn-primary">Start</a>
-            <a href="http://localhost:5000/restart" target="_blank" class="btn btn-warning">Restart</a>
-            <a href="http://localhost:5000/dos" target="_blank" class="btn btn-danger">DOS - Failed MITM or Aggresive nmap</a>
+            <a href="http://localhost:5000/start"  target="_self" class="btn btn-primary">Start</a>
+            <a href="http://localhost:5000/restart" target="_self" class="btn btn-warning">Restart</a>
+            <a href="http://localhost:5000/stop" target="_self" class="btn btn-danger">Stop</a>
             &ensp;&emsp;
             <a href="http://localhost:5000/auto" target="_self" class="btn btn-primary">Automatic</a>
-            <a href="http://localhost:5000/close0" target="_self" class="btn btn-danger">Close PLC0</a>
-            <a href="http://localhost:5000/open0" target="_self" class="btn btn-danger">Open PLC0</a>
+            <a href="http://localhost:5000/close1" target="_self" class="btn btn-warning">Close PLC 1</a>
+            <a href="http://localhost:5000/open1" target="_self" class="btn btn-warning">Open PLC 1</a>
+            <a href="http://localhost:5000/close2" target="_self" class="btn btn-warning">Close PLC 2</a>
+            <a href="http://localhost:5000/open2" target="_self" class="btn btn-warning">Open PLC 2</a>
+            &ensp;&emsp;
+            <a href="http://localhost:5000/dos" target="_self" class="btn btn-danger">DOS - Failed MITM or Aggresive nmap</a>
         </div>
         <div id="log">
         </div> <!-- /#log -->

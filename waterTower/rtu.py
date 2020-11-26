@@ -52,7 +52,6 @@ class ScenarioRTU(PLC):
             try:
                 self.mode = int(self.receive(MODE, RTU_ADDR))
             except:
-                print("AAAAAAARGH")
                 self.mode = 0
 
             print("MODE ==== " + str(self.mode))
@@ -64,7 +63,6 @@ class ScenarioRTU(PLC):
                     self.auto = False
         
             if not self.auto:
-                print("tadaa")
                 # OPEN PLC1
                 if self.mode == 2:
                     self.send(MV001, 2, PLC0_ADDR)
@@ -121,6 +119,4 @@ if __name__ == "__main__":
     rtu = ScenarioRTU(
         name='rtu',
         state=STATE,
-        protocol=RTU_PROTOCOL,
-        memory=PLC1_DATA,
-        disk=PLC1_DATA)
+        protocol=RTU_PROTOCOL)

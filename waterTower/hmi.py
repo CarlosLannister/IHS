@@ -36,7 +36,6 @@ def waterLevels():
         P201 = cursorObj.fetchall()[0][1]
 
         db.commit()
-        #db.close()
 
         socketio.emit('newnumber', {'number': waterLevel, 'MV001' : MV001, 'P201': P201}, namespace='/test')
         socketio.sleep(1)
@@ -54,34 +53,34 @@ def runCommand(mode):
     db1.commit()
     db1.close()
 
-def runCommand2():
-    print("TEST 2")
-    db2 = sqlite3.connect('file:hmi_db.sqlite?mode=rw', uri=True, timeout=3)
-    cursorObj2 = db2.cursor()
-    cursorObj2.execute('UPDATE hmi SET value = 3 WHERE name = "MODE"')
-    db2.commit()
-    db2.close()
-
-
 @app.route('/')
 def index():
     #only by sending this page first will the client be connected to the socketio instance
     return render_template('index.html')
 
-
-@app.route('/close0', methods=['GET'])
-def close0():
-    runCommand(2)
-    return render_template('index.html')
-
-@app.route('/open0', methods=['GET'])
-def open0():
-    runCommand(3)
-    return render_template('index.html')
-
 @app.route('/auto', methods=['GET'])
 def auto():
     runCommand(1)
+    return render_template('index.html')
+
+@app.route('/close1', methods=['GET'])
+def close1():
+    runCommand(2)
+    return render_template('index.html')
+
+@app.route('/open1', methods=['GET'])
+def open1():
+    runCommand(3)
+    return render_template('index.html')
+
+@app.route('/open2', methods=['GET'])
+def open2():
+    runCommand(4)
+    return render_template('index.html')
+
+@app.route('/close2', methods=['GET'])
+def close2():
+    runCommand(5)
     return render_template('index.html')
 
 @socketio.on('connect', namespace='/test')

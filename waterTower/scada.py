@@ -5,7 +5,7 @@ import sqlite3
 
 from minicps.devices import SCADAServer
 
-from utils import PLC1_DATA, STATE, SCADA_PROTOCOL, SCADA_LOOP 
+from utils import PLC1_DATA, STATE, SCADA_PROTOCOL, SCADA_LOOP, STATE2
 from utils import SCADA_ADDR, RTU_ADDR
 
 from threading import Thread, Event
@@ -65,10 +65,11 @@ class ScadaServer(SCADAServer):
             db.commit()
             db.close()
 
-            print("MODE == " + str(mode))
+            print("MODE === " + str(mode))
 
             if mode != 0:
-                self.send(MODE, mode, RTU_ADDR)
+                print("SENDING")
+                self.send(MODE, int(mode), RTU_ADDR)
 
             #water_level = self.receive(LIT101, RTU_ADDR)
 
@@ -81,5 +82,5 @@ if __name__ == "__main__":
     # notice that memory init is different form disk init
     scada = ScadaServer(
         name='scada',
-        state=STATE,
+        state=STATE2,
         protocol=SCADA_PROTOCOL)

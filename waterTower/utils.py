@@ -145,7 +145,8 @@ PLC0_PROTOCOL = {
 
 
 PLC1_ADDR = IP['plc1']
-RTU_ADDR = IP['plc1']
+
+
 PLC1_TAGS = (
     ('LIT101', 1, 'REAL'),
     # interlocks does NOT go to the statedb
@@ -161,11 +162,10 @@ PLC1_PROTOCOL = {
     'server': PLC1_SERVER
 }
 
-
+RTU_ADDR = IP['rtu']
 RTU_TAGS = (
     ('LIT101', 1, 'REAL'),
-    ('COMMAND', 0, 'INT'),
-    ('MODE', 0, 'INT')
+    ('MODE', 1, 'INT')
 )
 RTU_SERVER = {
     'address': RTU_ADDR,
@@ -174,7 +174,7 @@ RTU_SERVER = {
 RTU_PROTOCOL = {
     'name': 'enip',
     'mode': 1,
-    'server': PLC1_SERVER
+    'server': RTU_SERVER
 }
 
 # SCADA values
@@ -183,8 +183,7 @@ RTU_PROTOCOL = {
 SCADA_ADDR = IP['scada']
 SCADA_TAGS = (
     ('LIT101', 1, 'REAL'),
-    ('COMMAND', 0, 'INT'),
-    ('MODE', 0, 'INT')
+    ('MODE', 1, 'INT')
 )
 SCADA_SERVER = {
     'address': SCADA_ADDR,
@@ -281,5 +280,5 @@ SCHEMA_INIT2 = """
     
     INSERT INTO hmi VALUES ('P201',     2, '2');
     INSERT INTO hmi VALUES ('FIT201',   2, '2.45');
-    INSERT INTO hmi VALUES ('MODE',   0, '1');
+    INSERT INTO hmi VALUES ('MODE',   1, '1');
 """
