@@ -12,8 +12,6 @@ from utils import SCADA_ADDR, PLC0_ADDR, PLC2_ADDR, RTU_ADDR
 
 import time
 
-#MODE = ('MODE', 1) # 0 error / 1 automatic / 2 manual mode
-#COMMAND = ('COMMAND', 0) # 0 error / 1 automatic / 2 -> close plc0 / 3 -> open plc0 / 4 -> close plc0 / 5 -> open plc0 / 
 
 MODE = ('MODE', 1) # 0 error / 1 automatic / 2 -> close plc0 / 3 -> open plc0 / 4 -> close plc0 / 5 -> open plc0 / 
 
@@ -43,9 +41,10 @@ class ScenarioRTU(PLC):
         while True:
             # reads water level
             water_level = float(self.get(LIT101))
+
             print('[DEBUG] Water level: %.5f' % water_level)
 
-            # Sends water level to scaa
+            # Sends water level to scada
             self.send(LIT101, water_level, SCADA_ADDR)
 
             #Checks mode
@@ -61,7 +60,8 @@ class ScenarioRTU(PLC):
                    self.auto = True
                 else:
                     self.auto = False
-        
+            
+            #Manual mode
             if not self.auto:
                 # OPEN PLC1
                 if self.mode == 2:
@@ -76,8 +76,8 @@ class ScenarioRTU(PLC):
                 elif self.mode == 5:
                     self.send(P201, 2, PLC2_ADDR)
 
+            # Automatic mode 
             else:
-                # Automatic run 
                 # Hit the first OVERFLOW threshold
                 if water_level >= LIT_101_M['H']:
                     print("[WARNING] Water level over soft high -> close mv001 and open p201")
