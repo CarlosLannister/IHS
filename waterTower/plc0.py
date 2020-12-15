@@ -33,7 +33,11 @@ class ScenarioPLC0(PLC):
         print('[DEBUG] PLC0 - Enters main loop\n')
 
         while True:
-            mv001 = int(self.receive(MV001, PLC0_ADDR))
+            try:
+                mv001 = int(self.receive(MV001, PLC0_ADDR))
+            except:
+                mv001 = 0
+
             if mv001 != 0:      # receives 0 when error
                 self.set(MV001, mv001)
                 if mv001 == 1:

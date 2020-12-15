@@ -32,7 +32,11 @@ class ScenarioPLC2(PLC):
         print('[DEBUG] PLC2 - Enters main loop\n')
 
         while True:
-            p201 = int(self.receive(P201, PLC2_ADDR))
+            try:
+                p201 = int(self.receive(P201, PLC2_ADDR))
+            except:
+                p201 = 0
+            
             if p201 != 0:
                 self.set(P201, p201)
                 if p201 == 1:

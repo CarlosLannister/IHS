@@ -37,21 +37,21 @@ class SwatS1CPS(MiniCPS):
         
         if auto:
             print("Running PLCs")
-            plc0.cmd(sys.executable + ' plc0.py &')
-            plc2.cmd(sys.executable + ' plc2.py &')
+            plc0.cmd('nohup python plc0.py > logs/plc0.log &')
+            time.sleep(1)
+            plc2.cmd('nohup python plc2.py > logs/plc2.log &')
             time.sleep(2)
 
             print("Running physical process")
-            s1.cmd(sys.executable + ' physical_process.py &')
+            s1.cmd('nohup python physical_process.py > logs/physical_process.log &')
             time.sleep(2)
-            '''
+            
             print("Running RTU")
-            rtu.cmd(sys.executable + ' rtu.py &')
+            rtu.cmd('nohup python rtu.py > logs/rtu.log &')
             time.sleep(2)
 
             print("Running SCADA")
-            scada.cmd(sys.executable + ' scada.py &')
-            '''
+            scada.cmd('nohup python scada.py > logs/scada.log &')
 
         CLI(self.net)
 

@@ -48,10 +48,18 @@ class ScadaServer(SCADAServer):
         """
         print('DEBUG: SCADA server enters main_loop.\n')
 
+        water_level = 0
+        last_value = 0
+
         while(True):
             # Each X seconds gets the data from the RTU
-            water_level = float(self.receive(LIT101, SCADA_ADDR))
-            
+
+            try:
+                water_level = float(self.receive(LIT101, SCADA_ADDR))
+                last_value = water_level
+            except:
+                water_level = last_value
+
             print("[DEBUG] Water level:", water_level)
             # TODO guarda en la base de datos
 
