@@ -40,7 +40,15 @@ class ScenarioTopo(Topo):
             mac=SUBNET_1_MAC['attacker'])
         self.addLink(attacker, switch)
 
-        return switch
+        switch2 = self.addSwitch('s2_1')
+
+        scada = self.addHost(
+            'scada_1',
+            ip=SUBNET_1['scada'] + NETMASK,
+            mac=SUBNET_1_MAC['scada'])
+        self.addLink(scada, switch2)
+
+        self.addLink(switch2, switch)
 
     def subnet2(self):
 
@@ -70,7 +78,15 @@ class ScenarioTopo(Topo):
             mac=SUBNET_2_MAC['attacker'])
         self.addLink(attacker, switch)
 
-        return switch
+        switch2 = self.addSwitch('s2_2')
+
+        scada = self.addHost(
+            'scada_2',
+            ip=SUBNET_2['scada'] + NETMASK,
+            mac=SUBNET_2_MAC['scada'])
+        self.addLink(scada, switch2)
+
+        self.addLink(switch2, switch)
 
 
     def subnet3(self):
@@ -101,27 +117,29 @@ class ScenarioTopo(Topo):
             mac=SUBNET_3_MAC['attacker'])
         self.addLink(attacker, switch)
 
-        return switch
+        switch2 = self.addSwitch('s2_3')
+
+        scada = self.addHost(
+            'scada_3',
+            ip=SUBNET_3['scada'] + NETMASK,
+            mac=SUBNET_3_MAC['scada'])
+        self.addLink(scada, switch2)
+
+        self.addLink(switch2, switch)
 
 
     def build(self):
 
-        switch2 = self.addSwitch('s2')
 
-        switch = subnet1()
-        self.addLink(switch2, switch)
+        self.subnet1()
+        
 
-        switch = subnet2()
-        self.addLink(switch2, switch)
+        self.subnet2()
 
-        #switch = subnet3()
+        #switch = self.subnet3()
         #self.addLink(switch2, switch)
 
-        scada = self.addHost(
-            'scada',
-            ip=IP['scada'] + NETMASK,
-            mac=MAC['scada'])
-        self.addLink(scada, switch2)
+        
 
 
 if __name__ == '__main__':

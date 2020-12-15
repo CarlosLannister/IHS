@@ -110,42 +110,48 @@ SUBNET_1 = {
     'plc0': '10.168.2.10',
     'rtu': '10.168.2.20',
     'plc2': '10.168.2.30',
-    'attacker': '10.168.2.77'
+    'attacker': '10.168.2.77',
+    'scada': '10.168.2.150'
 }
 
 SUBNET_1_MAC = {
     'plc0': '00:1D:9C:C6:20:60',
     'rtu': '00:1D:9C:C7:20:71',
     'plc2': '00:1D:9C:C8:2C:46',
-    'attacker': 'AA:AA:AA:AA:2A:AA'
+    'attacker': 'AA:AA:AA:AA:2A:AA',
+    'scada': 'BB:BB:BB:BB:2B:BB'
 }
 
 SUBNET_2 = {
     'plc0': '10.168.3.10',
     'rtu': '10.168.3.20',
     'plc2': '10.168.3.30',
-    'attacker': '10.168.3.77'
+    'attacker': '10.168.3.77',
+    'scada': '10.168.3.150'
 }
 
 SUBNET_2_MAC = {
     'plc0': '00:1D:9C:C6:30:60',
     'rtu': '00:1D:9C:C7:30:71',
     'plc2': '00:1D:9C:C8:3C:46',
-    'attacker': 'AA:AA:AA:AA:3A:AA'
+    'attacker': 'AA:AA:AA:AA:3A:AA',
+    'scada': 'BB:BB:BB:BB:3B:BB'
 }
 
 SUBNET_3 = {
     'plc0': '10.168.4.10',
     'rtu': '10.168.4.20',
     'plc2': '10.168.4.30',
-    'attacker': '10.168.4.77'
+    'attacker': '10.168.4.77',
+    'scada': '10.168.4.150'
 }
 
 SUBNET_3_MAC = {
     'plc0': '00:1D:9C:C6:40:60',
     'rtu': '00:1D:9C:C7:40:71',
     'plc2': '00:1D:9C:C8:4C:46',
-    'attacker': 'AA:AA:AA:AA:4A:AA'
+    'attacker': 'AA:AA:AA:AA:4A:AA',
+    'scada': 'BB:BB:BB:BB:4B:BB'
 }
 
 NETMASK = '/24'
@@ -168,34 +174,6 @@ PLC2_DATA = {
 }
 
 
-
-# COPY
-
-PLC0_DATA = {
-    'TODO': 'TODO',
-}
-PLC0_TAGS = (
-    #TODO add flag here
-    ('MV001', 0, 'INT'),
-)
-PLC0_SERVER = {
-    'address': IP['plc0'],
-    'tags': PLC0_TAGS
-}
-PLC0_PROTOCOL = {
-    'name': 'enip',
-    'mode': 1,
-    'server': PLC0_SERVER
-}
-PATH = 'swat_s1_db.sqlite'
-NAME = 'swat_s1'
-
-STATE = {
-    'name': NAME,
-    'path': PATH
-}
-
-####
 
 # SPHINX_SWAT_TUTORIAL PLC0 UTILS(
 
@@ -413,4 +391,58 @@ SCHEMA_INIT2 = """
     INSERT INTO hmi VALUES ('P201',     2, '2');
     INSERT INTO hmi VALUES ('FIT201',   2, '2.45');
     INSERT INTO hmi VALUES ('MODE',   1, '1');
+"""
+
+PATH3 = 'hmi3_db.sqlite'
+NAME3 = 'hmi3'
+
+STATE3 = {
+    'name': NAME3,
+    'path': PATH3
+}
+
+SCHEMA3 = """
+CREATE TABLE hmi3 (
+    name              TEXT NOT NULL,
+    pid               INTEGER NOT NULL,
+    value             TEXT,
+    PRIMARY KEY (name, pid)
+);
+"""
+
+SCHEMA_INIT3 = """
+    INSERT INTO hmi3 VALUES ('FIT101',   1, '2.55');
+    INSERT INTO hmi3 VALUES ('MV001',    0, '1');
+    INSERT INTO hmi3 VALUES ('LIT101',   1, '0.500');
+    
+    INSERT INTO hmi3 VALUES ('P201',     2, '2');
+    INSERT INTO hmi3 VALUES ('FIT201',   2, '2.45');
+    INSERT INTO hmi3 VALUES ('MODE',   1, '1');
+"""
+
+PATH4 = 'hmi4_db.sqlite'
+NAME4 = 'hmi4'
+
+STATE4 = {
+    'name': NAME4,
+    'path': PATH4
+}
+
+SCHEMA4 = """
+CREATE TABLE hmi4 (
+    name              TEXT NOT NULL,
+    pid               INTEGER NOT NULL,
+    value             TEXT,
+    PRIMARY KEY (name, pid)
+);
+"""
+
+SCHEMA_INIT4 = """
+    INSERT INTO hmi4 VALUES ('FIT101',   1, '2.55');
+    INSERT INTO hmi4 VALUES ('MV001',    0, '1');
+    INSERT INTO hmi4 VALUES ('LIT101',   1, '0.500');
+    
+    INSERT INTO hmi4 VALUES ('P201',     2, '2');
+    INSERT INTO hmi4 VALUES ('FIT201',   2, '2.45');
+    INSERT INTO hmi4 VALUES ('MODE',   1, '1');
 """
