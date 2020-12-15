@@ -31,11 +31,12 @@ class SwatS1CPS(MiniCPS):
         net.pingAll()
 
         # start devices
-        plc0, rtu, plc2, s1, scada = self.net.get('plc0', 'rtu', 'plc2', 's1', 'scada')
-
+        
         print("Devices started")
         
         if auto:
+            plc0, rtu, plc2, s1, scada = self.net.get('plc0', 'rtu', 'plc2', 's1', 'scada')
+
             print("Running PLCs")
             plc0.cmd('nohup python plc0.py > logs/plc0.log &')
             time.sleep(1)

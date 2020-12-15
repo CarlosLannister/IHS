@@ -84,6 +84,9 @@ RWT_INIT_LEVEL = 0.500  # l
 FIT_201_THRESH = 1.00
 # SPHINX_SWAT_TUTORIAL PROCESS UTILS)
 
+
+#### From here IP stuff
+
 # topo {{{1
 IP = {
     'plc0': '10.168.1.10',
@@ -94,8 +97,6 @@ IP = {
     'scada': '10.168.1.150'
 }
 
-NETMASK = '/24'
-
 MAC = {
     'plc0': '00:1D:9C:C6:A0:60',
     'plc1': '00:1D:9C:C7:B0:70',
@@ -104,6 +105,52 @@ MAC = {
     'attacker': 'AA:AA:AA:AA:AA:AA',
     'scada': 'BB:BB:BB:BB:BB:BB'
 }
+
+SUBNET_1 = {
+    'plc0': '10.168.2.10',
+    'rtu': '10.168.2.20',
+    'plc2': '10.168.2.30',
+    'attacker': '10.168.2.77'
+}
+
+SUBNET_1_MAC = {
+    'plc0': '00:1D:9C:C6:20:60',
+    'rtu': '00:1D:9C:C7:20:71',
+    'plc2': '00:1D:9C:C8:2C:46',
+    'attacker': 'AA:AA:AA:AA:2A:AA'
+}
+
+SUBNET_2 = {
+    'plc0': '10.168.3.10',
+    'rtu': '10.168.3.20',
+    'plc2': '10.168.3.30',
+    'attacker': '10.168.3.77'
+}
+
+SUBNET_2_MAC = {
+    'plc0': '00:1D:9C:C6:30:60',
+    'rtu': '00:1D:9C:C7:30:71',
+    'plc2': '00:1D:9C:C8:3C:46',
+    'attacker': 'AA:AA:AA:AA:3A:AA'
+}
+
+SUBNET_3 = {
+    'plc0': '10.168.4.10',
+    'rtu': '10.168.4.20',
+    'plc2': '10.168.4.30',
+    'attacker': '10.168.4.77'
+}
+
+SUBNET_3_MAC = {
+    'plc0': '00:1D:9C:C6:40:60',
+    'rtu': '00:1D:9C:C7:40:71',
+    'plc2': '00:1D:9C:C8:4C:46',
+    'attacker': 'AA:AA:AA:AA:4A:AA'
+}
+
+NETMASK = '/24'
+
+
 
 
 # others
@@ -122,14 +169,42 @@ PLC2_DATA = {
 
 
 
-# SPHINX_SWAT_TUTORIAL PLC0 UTILS(
-PLC0_ADDR = IP['plc0']
+# COPY
+
+PLC0_DATA = {
+    'TODO': 'TODO',
+}
 PLC0_TAGS = (
     #TODO add flag here
     ('MV001', 0, 'INT'),
 )
 PLC0_SERVER = {
-    'address': PLC0_ADDR,
+    'address': IP['plc0'],
+    'tags': PLC0_TAGS
+}
+PLC0_PROTOCOL = {
+    'name': 'enip',
+    'mode': 1,
+    'server': PLC0_SERVER
+}
+PATH = 'swat_s1_db.sqlite'
+NAME = 'swat_s1'
+
+STATE = {
+    'name': NAME,
+    'path': PATH
+}
+
+####
+
+# SPHINX_SWAT_TUTORIAL PLC0 UTILS(
+
+PLC0_TAGS = (
+    #TODO add flag here
+    ('MV001', 0, 'INT'),
+)
+PLC0_SERVER = {
+    'address': IP['plc0'],
     'tags': PLC0_TAGS
 }
 PLC0_PROTOCOL = {
@@ -253,6 +328,63 @@ SCHEMA_INIT = """
     
     INSERT INTO swat_s1 VALUES ('P201',     2, '2');
     INSERT INTO swat_s1 VALUES ('FIT201',   2, '2.45');
+"""
+
+# subnet 2
+
+PATH_2 = 'swat_s2_db.sqlite'
+NAME_2 = 'swat_s2'
+
+STATE_2 = {
+    'name': NAME_2,
+    'path': PATH_2
+}
+
+SCHEMA_2 = """
+CREATE TABLE swat_s2 (
+    name              TEXT NOT NULL,
+    pid               INTEGER NOT NULL,
+    value             TEXT,
+    PRIMARY KEY (name, pid)
+);
+"""
+
+SCHEMA_INIT_2 = """
+    INSERT INTO swat_s2 VALUES ('FIT101',   1, '2.55');
+    INSERT INTO swat_s2 VALUES ('MV001',    0, '1');
+    INSERT INTO swat_s2 VALUES ('LIT101',   1, '0.500');
+    
+    INSERT INTO swat_s2 VALUES ('P201',     2, '2');
+    INSERT INTO swat_s2 VALUES ('FIT201',   2, '2.45');
+"""
+
+
+#subnet 3
+
+PATH_3 = 'swat_s3_db.sqlite'
+NAME_3 = 'swat_s3'
+
+STATE_3 = {
+    'name': NAME_3,
+    'path': PATH_3
+}
+
+SCHEMA_3 = """
+CREATE TABLE swat_s3 (
+    name              TEXT NOT NULL,
+    pid               INTEGER NOT NULL,
+    value             TEXT,
+    PRIMARY KEY (name, pid)
+);
+"""
+
+SCHEMA_INIT_3 = """
+    INSERT INTO swat_s3 VALUES ('FIT101',   1, '2.55');
+    INSERT INTO swat_s3 VALUES ('MV001',    0, '1');
+    INSERT INTO swat_s3 VALUES ('LIT101',   1, '0.500');
+    
+    INSERT INTO swat_s3 VALUES ('P201',     2, '2');
+    INSERT INTO swat_s3 VALUES ('FIT201',   2, '2.45');
 """
 
 # state TODO change name

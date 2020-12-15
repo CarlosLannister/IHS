@@ -7,7 +7,7 @@ Run this script just once to create and init the sqlite table.
 """
 
 from minicps.states import SQLiteState
-from utils import PATH, SCHEMA, SCHEMA_INIT, PATH2, SCHEMA2, SCHEMA_INIT2
+from utils import PATH, SCHEMA, SCHEMA_INIT, PATH2, SCHEMA2, SCHEMA_INIT2, PATH_2, PATH_3, SCHEMA_2, SCHEMA_3, SCHEMA_INIT_2, SCHEMA_INIT_3
 from sqlite3 import OperationalError
 
 
@@ -19,6 +19,14 @@ if __name__ == "__main__":
 
         SQLiteState._create(PATH2, SCHEMA2)
         SQLiteState._init(PATH2, SCHEMA_INIT2)
+
+        SQLiteState._create(PATH_2, SCHEMA_2)
+        SQLiteState._init(PATH_2, SCHEMA_INIT_2)
+
+        SQLiteState._create(PATH_3, SCHEMA_3)
+        SQLiteState._init(PATH_3, SCHEMA_INIT_3)
+
+
         print("{} successfully created.".format(PATH))
     except OperationalError:
         print("{} already exists.".format(PATH))
