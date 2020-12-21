@@ -10,7 +10,7 @@ from utils import SUBNET_3
 
 import time
 
-PLC0_ADDR = SUBNET_2['plc0']
+PLC0_ADDR = SUBNET_3['plc0']
 
 # Motorized Valve Tag
 MV001 = ('MV001', 0)

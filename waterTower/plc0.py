@@ -6,11 +6,11 @@ scenario plc0
 from minicps.devices import PLC
 from utils import PLC0_DATA, STATE, PLC0_PROTOCOL
 from utils import PLC_PERIOD_SEC
-from utils import IP
+from utils import SUBNET_1
 
 import time
 
-PLC0_ADDR = IP['plc0']
+PLC0_ADDR = SUBNET_1['plc0']
 
 # Motorized Valve Tag
 MV001 = ('MV001', 0)

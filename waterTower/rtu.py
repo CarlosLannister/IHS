@@ -7,11 +7,14 @@ rtu
 from minicps.devices import RTU, PLC
 from utils import PLC1_DATA, STATE, PLC1_PROTOCOL, RTU_PROTOCOL
 from utils import PLC_PERIOD_SEC, PLC_SAMPLES
-from utils import IP, LIT_101_M
-from utils import SCADA_ADDR, PLC0_ADDR, PLC2_ADDR, RTU_ADDR
+from utils import SUBNET_1, LIT_101_M
 
 import time
 
+SCADA_ADDR = SUBNET_1['scada']
+PLC0_ADDR = SUBNET_1['plc0']
+PLC2_ADDR = SUBNET_1['plc2']
+RTU_ADDR = SUBNET_1['rtu']
 
 MODE = ('MODE', 1) # 0 error / 1 automatic / 2 -> close plc0 / 3 -> open plc0 / 4 -> close plc0 / 5 -> open plc0 / 
 

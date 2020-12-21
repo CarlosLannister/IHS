@@ -136,7 +136,7 @@ class ScenarioTopo(Topo):
 
         self.subnet2()
 
-        #switch = self.subnet3()
+        self.subnet3()
         #self.addLink(switch2, switch)
 
         

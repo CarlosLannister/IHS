@@ -6,11 +6,11 @@ scenario plc2
 from minicps.devices import PLC
 from utils import PLC2_DATA, STATE, PLC2_PROTOCOL
 from utils import PLC_PERIOD_SEC
-from utils import IP
+from utils import SUBNET_1
 
 import time
 
-PLC2_ADDR = IP['plc2']
+PLC2_ADDR = SUBNET_1['plc2']
 
 # Pump Tag
 P201 = ('P201', 2)

@@ -5,14 +5,15 @@ import sqlite3
 
 from minicps.devices import SCADAServer
 
-from utils import PLC1_DATA, STATE, SCADA_PROTOCOL, SCADA_LOOP, STATE2
-from utils import SCADA_ADDR, RTU_ADDR
+from utils import PLC1_DATA, STATE, SCADA_PROTOCOL, SCADA_LOOP, STATE2, SUBNET_1
 
 from threading import Thread, Event
 import sqlite3
 
 import time
 
+SCADA_ADDR = SUBNET_1['scada']
+RTU_ADDR = SUBNET_1['rtu']
 
 #MODE = ('MODE', 1) # 0 error / 1 automatic / 2 manual mode
 #COMMAND = ('COMMAND', 0) # 0 error / 1 automatic / 2 -> close plc0 / 3 -> open plc0 / 4 -> close plc0 / 5 -> open plc0 / 
